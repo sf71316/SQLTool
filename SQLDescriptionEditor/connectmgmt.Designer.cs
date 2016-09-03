@@ -32,15 +32,15 @@
             this.cbtemplate = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.plauth = new System.Windows.Forms.Panel();
+            this.tbpwd = new System.Windows.Forms.TextBox();
+            this.tbusername = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.cbAuthmode = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tbservername = new System.Windows.Forms.TextBox();
-            this.plauth = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tbusername = new System.Windows.Forms.TextBox();
-            this.tbpwd = new System.Windows.Forms.TextBox();
             this.btntest = new System.Windows.Forms.Button();
             this.btnsave = new System.Windows.Forms.Button();
             this.btncancel = new System.Windows.Forms.Button();
@@ -88,14 +88,51 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Log on to the server";
             // 
-            // label2
+            // plauth
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 12);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Authentication";
+            this.plauth.Controls.Add(this.tbpwd);
+            this.plauth.Controls.Add(this.tbusername);
+            this.plauth.Controls.Add(this.label5);
+            this.plauth.Controls.Add(this.label4);
+            this.plauth.Enabled = false;
+            this.plauth.Location = new System.Drawing.Point(27, 43);
+            this.plauth.Name = "plauth";
+            this.plauth.Size = new System.Drawing.Size(358, 72);
+            this.plauth.TabIndex = 3;
+            // 
+            // tbpwd
+            // 
+            this.tbpwd.Location = new System.Drawing.Point(61, 41);
+            this.tbpwd.Name = "tbpwd";
+            this.tbpwd.PasswordChar = '*';
+            this.tbpwd.Size = new System.Drawing.Size(282, 22);
+            this.tbpwd.TabIndex = 7;
+            this.tbpwd.UseSystemPasswordChar = true;
+            // 
+            // tbusername
+            // 
+            this.tbusername.Location = new System.Drawing.Point(61, 4);
+            this.tbusername.Name = "tbusername";
+            this.tbusername.Size = new System.Drawing.Size(282, 22);
+            this.tbusername.TabIndex = 6;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(4, 44);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(51, 12);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Password:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(4, 4);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(57, 12);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "User name:";
             // 
             // cbAuthmode
             // 
@@ -108,6 +145,15 @@
             this.cbAuthmode.Size = new System.Drawing.Size(199, 20);
             this.cbAuthmode.TabIndex = 1;
             this.cbAuthmode.SelectedIndexChanged += new System.EventHandler(this.cbAuthmode_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(73, 12);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Authentication";
             // 
             // label3
             // 
@@ -124,52 +170,6 @@
             this.tbservername.Name = "tbservername";
             this.tbservername.Size = new System.Drawing.Size(286, 22);
             this.tbservername.TabIndex = 4;
-            // 
-            // plauth
-            // 
-            this.plauth.Controls.Add(this.tbpwd);
-            this.plauth.Controls.Add(this.tbusername);
-            this.plauth.Controls.Add(this.label5);
-            this.plauth.Controls.Add(this.label4);
-            this.plauth.Enabled = false;
-            this.plauth.Location = new System.Drawing.Point(27, 43);
-            this.plauth.Name = "plauth";
-            this.plauth.Size = new System.Drawing.Size(358, 72);
-            this.plauth.TabIndex = 3;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(4, 4);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(57, 12);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "User name:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 44);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(51, 12);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Password:";
-            // 
-            // tbusername
-            // 
-            this.tbusername.Location = new System.Drawing.Point(61, 4);
-            this.tbusername.Name = "tbusername";
-            this.tbusername.Size = new System.Drawing.Size(282, 22);
-            this.tbusername.TabIndex = 6;
-            // 
-            // tbpwd
-            // 
-            this.tbpwd.Location = new System.Drawing.Point(61, 41);
-            this.tbpwd.Name = "tbpwd";
-            this.tbpwd.PasswordChar = '*';
-            this.tbpwd.Size = new System.Drawing.Size(282, 22);
-            this.tbpwd.TabIndex = 7;
-            this.tbpwd.UseSystemPasswordChar = true;
             // 
             // btntest
             // 
@@ -223,6 +223,7 @@
             this.MinimizeBox = false;
             this.Name = "connectmgmt";
             this.Text = "DB Connection";
+            this.Load += new System.EventHandler(this.connectmgmt_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.plauth.ResumeLayout(false);

@@ -47,5 +47,15 @@ namespace SQLDescriptionEditor
         {
 
         }
+
+        private void connectmgmt_Load(object sender, EventArgs e)
+        {
+            LoadConnectionDropdownList();
+        }
+
+        private void LoadConnectionDropdownList()
+        {
+            
+        }
     }
 }
