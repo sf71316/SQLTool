@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="General">
+      <HintPath>..\..\dll\General.dll</HintPath>
+    </Reference>
+    <Reference Include="General.Data">
+      <HintPath>..\..\dll\General.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -58,6 +64,12 @@
     <Compile Include="main.Designer.cs">
       <DependentUpon>main.cs</DependentUpon>
     </Compile>
+    <Compile Include="newprojfrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="newprojfrm.Designer.cs">
+      <DependentUpon>newprojfrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="connectmgmt.resx">
@@ -65,6 +77,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="main.resx">
       <DependentUpon>main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="newprojfrm.resx">
+      <DependentUpon>newprojfrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -87,6 +102,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SQLDesctionEditor.Lib\SQLDesctionEditor.Lib.csproj">
+      <Project>{49c39332-8e23-4105-bff5-6fe110e1e6eb}</Project>
+      <Name>SQLDesctionEditor.Lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

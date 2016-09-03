@@ -13,5 +13,7 @@ namespace SQLDesctionEditor.Lib.Entity
         public string ProviderName { get; set; }
         public string UserId { get; set; }
         public string Password { get; set; }
+        public bool WindowsAuthentication { get; set; }
+
     }
 }

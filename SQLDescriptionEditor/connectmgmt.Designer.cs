@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbConnectionname = new System.Windows.Forms.TextBox();
             this.cbtemplate = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -44,19 +44,21 @@
             this.btntest = new System.Windows.Forms.Button();
             this.btnsave = new System.Windows.Forms.Button();
             this.btncancel = new System.Windows.Forms.Button();
+            this.lnklbDelete = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.plauth.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // tbConnectionname
             // 
-            this.textBox1.Location = new System.Drawing.Point(15, 63);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(286, 22);
-            this.textBox1.TabIndex = 0;
+            this.tbConnectionname.Location = new System.Drawing.Point(15, 63);
+            this.tbConnectionname.Name = "tbConnectionname";
+            this.tbConnectionname.Size = new System.Drawing.Size(286, 22);
+            this.tbConnectionname.TabIndex = 0;
             // 
             // cbtemplate
             // 
+            this.cbtemplate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbtemplate.FormattingEnabled = true;
             this.cbtemplate.Items.AddRange(new object[] {
             "New..."});
@@ -64,6 +66,7 @@
             this.cbtemplate.Name = "cbtemplate";
             this.cbtemplate.Size = new System.Drawing.Size(201, 20);
             this.cbtemplate.TabIndex = 1;
+            this.cbtemplate.SelectedIndexChanged += new System.EventHandler(this.cbtemplate_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -108,6 +111,7 @@
             this.tbpwd.Size = new System.Drawing.Size(282, 22);
             this.tbpwd.TabIndex = 7;
             this.tbpwd.UseSystemPasswordChar = true;
+            this.tbpwd.TextChanged += new System.EventHandler(this.tbpwd_TextChanged);
             // 
             // tbusername
             // 
@@ -115,6 +119,7 @@
             this.tbusername.Name = "tbusername";
             this.tbusername.Size = new System.Drawing.Size(282, 22);
             this.tbusername.TabIndex = 6;
+            this.tbusername.TextChanged += new System.EventHandler(this.tbusername_TextChanged);
             // 
             // label5
             // 
@@ -136,6 +141,7 @@
             // 
             // cbAuthmode
             // 
+            this.cbAuthmode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAuthmode.FormattingEnabled = true;
             this.cbAuthmode.Items.AddRange(new object[] {
             "Windows Authentication",
@@ -185,6 +191,7 @@
             // btnsave
             // 
             this.btnsave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnsave.Enabled = false;
             this.btnsave.Location = new System.Drawing.Point(226, 306);
             this.btnsave.Name = "btnsave";
             this.btnsave.Size = new System.Drawing.Size(75, 23);
@@ -204,11 +211,24 @@
             this.btncancel.UseVisualStyleBackColor = true;
             this.btncancel.Click += new System.EventHandler(this.button2_Click);
             // 
+            // lnklbDelete
+            // 
+            this.lnklbDelete.AutoSize = true;
+            this.lnklbDelete.Enabled = false;
+            this.lnklbDelete.Location = new System.Drawing.Point(226, 20);
+            this.lnklbDelete.Name = "lnklbDelete";
+            this.lnklbDelete.Size = new System.Drawing.Size(34, 12);
+            this.lnklbDelete.TabIndex = 9;
+            this.lnklbDelete.TabStop = true;
+            this.lnklbDelete.Text = "Delete";
+            this.lnklbDelete.Click += new System.EventHandler(this.lnklbDelete_Click);
+            // 
             // connectmgmt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(416, 349);
+            this.Controls.Add(this.lnklbDelete);
             this.Controls.Add(this.btncancel);
             this.Controls.Add(this.btnsave);
             this.Controls.Add(this.btntest);
@@ -217,11 +237,12 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbtemplate);
-            this.Controls.Add(this.textBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Controls.Add(this.tbConnectionname);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "connectmgmt";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DB Connection";
             this.Load += new System.EventHandler(this.connectmgmt_Load);
             this.groupBox1.ResumeLayout(false);
@@ -235,7 +256,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbConnectionname;
         private System.Windows.Forms.ComboBox cbtemplate;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -251,5 +272,6 @@
         private System.Windows.Forms.Button btntest;
         private System.Windows.Forms.Button btnsave;
         private System.Windows.Forms.Button btncancel;
+        private System.Windows.Forms.LinkLabel lnklbDelete;
     }
 }

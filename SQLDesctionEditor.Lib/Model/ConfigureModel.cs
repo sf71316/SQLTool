@@ -11,6 +11,7 @@ namespace SQLDesctionEditor.Lib.Model
 {
     public class ConfigureModel
     {
+        static IEnumerable<ConnectionEntity> Connections;
         public IEnumerable<ConnectionEntity> GetConnectionList(string FileName)
         {
             var _fullpath = Path.Combine(Environment.CurrentDirectory, FileName);
@@ -20,6 +21,25 @@ namespace SQLDesctionEditor.Lib.Model
                 return JsonConvert.DeserializeObject<IEnumerable<ConnectionEntity>>(content);
             }
             return new List<ConnectionEntity>();
+        }
+        public void Save(IEnumerable<ConnectionEntity> Data, string FileName)
+        {
+            var _fullpath = Path.Combine(Environment.CurrentDirectory, FileName);
+            File.WriteAllText(_fullpath, JsonConvert.SerializeObject(Data, Formatting.Indented), Encoding.UTF8);
+        }
+        public static IEnumerable<ConnectionEntity> GetDefaultConnectionList()
+        {
+            if (Connections == null)
+            {
+                ConfigureModel model = new ConfigureModel();
+                Connections = model.GetConnectionList(Configure.DEFAULT_CONNECTION_CONFIG_NAME).ToList();
+            }
+            return Connections;
+
+        }
+        public static void ClearCache()
+        {
+            Connections = null;
         }
     }
 }
