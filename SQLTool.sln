@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLDescriptionEditor", "SQLDescriptionEditor\SQLDescriptionEditor.csproj", "{C8DB7A56-8AE4-4620-B94E-3BBB35B2AC6A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DescriptionEditor", "DescriptionEditor", "{C8C0908C-6F49-4CB2-84AF-47CFF54FB20F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLDesctionEditor.Lib", "SQLDesctionEditor.Lib\SQLDesctionEditor.Lib.csproj", "{49C39332-8E23-4105-BFF5-6FE110E1E6EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +19,16 @@ Global
 		{C8DB7A56-8AE4-4620-B94E-3BBB35B2AC6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8DB7A56-8AE4-4620-B94E-3BBB35B2AC6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8DB7A56-8AE4-4620-B94E-3BBB35B2AC6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49C39332-8E23-4105-BFF5-6FE110E1E6EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C39332-8E23-4105-BFF5-6FE110E1E6EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C39332-8E23-4105-BFF5-6FE110E1E6EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C39332-8E23-4105-BFF5-6FE110E1E6EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C8DB7A56-8AE4-4620-B94E-3BBB35B2AC6A} = {C8C0908C-6F49-4CB2-84AF-47CFF54FB20F}
+		{49C39332-8E23-4105-BFF5-6FE110E1E6EB} = {C8C0908C-6F49-4CB2-84AF-47CFF54FB20F}
 	EndGlobalSection
 EndGlobal

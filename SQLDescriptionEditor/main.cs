@@ -16,5 +16,11 @@ namespace SQLDescriptionEditor
         {
             InitializeComponent();
         }
+
+        private void connectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var connmgmt = new connectmgmt();
+            connmgmt.ShowDialog();
+        }
     }
 }
