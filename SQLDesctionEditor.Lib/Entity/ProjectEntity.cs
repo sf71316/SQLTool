@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace SQLDesctionEditor.Lib.Entity
 {
-    public class ProejctEntity
+    public class ProjectEntity
     {
         public string ConnectionName { get; set; }
         [JsonIgnore]

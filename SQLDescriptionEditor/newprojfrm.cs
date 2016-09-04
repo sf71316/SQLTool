@@ -1,4 +1,5 @@
 ﻿using SQLDesctionEditor.Lib;
+using SQLDesctionEditor.Lib.Entity;
 using SQLDesctionEditor.Lib.Model;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace SQLDescriptionEditor
     public partial class newprojfrm : Form
     {
         string _savepath;
+        public ProjectEntity Project { get; protected set; }
         public newprojfrm(string SavePath) : this()
         {
             _savepath = SavePath;
@@ -22,7 +24,7 @@ namespace SQLDescriptionEditor
         public newprojfrm()
         {
             InitializeComponent();
-            
+
         }
 
         private void newprojfrm_Load(object sender, EventArgs e)
@@ -56,16 +58,23 @@ namespace SQLDescriptionEditor
         {
             return tbprojname.Text.Length > 3 && cbDbContext.SelectedIndex > -1;
         }
-        
+
 
         private void tbprojname_TextChanged(object sender, EventArgs e)
         {
-            this.btnImport.Enabled = CheckData();
+            this.btncreate.Enabled = CheckData();
         }
 
         private void cbDbContext_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            this.btnImport.Enabled = CheckData();
+            this.btncreate.Enabled = CheckData();
+        }
+
+        private void btncreate_Click(object sender, EventArgs e)
+        {
+            ProjectModel model = new ProjectModel(cbtemplate.SelectedValue.ToString(), cbDbContext.SelectedValue.ToString());
+            this.Project = model.Create();
+            this.Close();
         }
     }
 }

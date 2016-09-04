@@ -37,6 +37,18 @@ namespace SQLDesctionEditor.Lib.Model
             return Connections;
 
         }
+        public static ConnectionEntity Find(string ConnectionName, string FilePath = "")
+        {
+            if (string.IsNullOrEmpty(FilePath))
+            {
+                return GetDefaultConnectionList().FirstOrDefault(p => p.ConnectionName == ConnectionName);
+            }
+            else
+            {
+                ConfigureModel model = new ConfigureModel();
+                return model.GetConnectionList(FilePath).FirstOrDefault(p => p.ConnectionName == ConnectionName);
+            }
+        }
         public static void ClearCache()
         {
             Connections = null;

@@ -58,6 +58,12 @@
     <Compile Include="connectmgmt.Designer.cs">
       <DependentUpon>connectmgmt.cs</DependentUpon>
     </Compile>
+    <Compile Include="editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="editor.Designer.cs">
+      <DependentUpon>editor.cs</DependentUpon>
+    </Compile>
     <Compile Include="main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +80,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="connectmgmt.resx">
       <DependentUpon>connectmgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="editor.resx">
+      <DependentUpon>editor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="main.resx">
       <DependentUpon>main.cs</DependentUpon>

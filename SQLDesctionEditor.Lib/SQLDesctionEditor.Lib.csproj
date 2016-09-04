@@ -63,12 +63,14 @@
     <Compile Include="Configure.cs" />
     <Compile Include="Entity\ConnectionEntity.cs" />
     <Compile Include="Entity\DataBaseEntity.cs" />
-    <Compile Include="Entity\ProejctEntity.cs" />
+    <Compile Include="Entity\ProjectEntity.cs" />
     <Compile Include="Entity\TableColumnEntity.cs" />
     <Compile Include="Entity\TableEntity.cs" />
     <Compile Include="Model\ConfigureModel.cs" />
     <Compile Include="Model\DbBase.cs" />
     <Compile Include="Model\DbContext.cs" />
+    <Compile Include="Model\Notification.cs" />
+    <Compile Include="Model\ProjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -19,16 +19,55 @@ namespace SQLDesctionEditor.Lib.Model
         public DbContext(ConnectionEntity Entity)
         {
             this.InitDataBase(GetConnectionString(Entity));
+         
+        }
+        public void ChangeDataBase(string DbName)
+        {
+            this.Provider.Connection.Open();
+            this.Provider.Connection.ChangeDatabase(DbName);
+            this.Provider.Connection.Close();
         }
         public IList<string> GetDataBases()
         {
             using (var conn = this.Provider.GenerateConnection())
             {
-              var result=  conn.Query<DataBaseEntity>("EXEC sp_databases");
-                
-                return result.Where(p => 
-                     !new string[] { "master", "tempdb","msdb" }.Contains(p.DATABASE_NAME)
-                ).Select(p=>p.DATABASE_NAME).ToList();
+                var result = conn.Query<DataBaseEntity>("EXEC sp_databases");
+
+                return result.Where(p =>
+                     !new string[] { "master", "tempdb", "msdb" }.Contains(p.DATABASE_NAME)
+                ).Select(p => p.DATABASE_NAME).ToList();
+            }
+        }
+        public IList<TableEntity> GetTables()
+        {
+            using (var conn = this.Provider.GenerateConnection())
+            {
+                var result = conn.Query<TableEntity>(@" select * from INFORMATION_SCHEMA.TABLES
+                                                        WHERE TABLE_TYPE = 'BASE TABLE'");
+                return result.ToList();
+            }
+
+        }
+        public List<TableColumnEntity> GetColumns(string[] TableNames)
+        {
+            using (var conn = this.Provider.GenerateConnection())
+            {
+                var result = conn.Query<TableColumnEntity>(@"
+                select distinct
+                    st.name [Table],
+                    sc.name [Column],
+		            COLUMN_DEFAULT ColumnDefault,isc.IS_NULLABLE ISNULLABLE,DATA_TYPE DataType,CHARACTER_MAXIMUM_LENGTH [Length],
+                    sep.value [Description]
+                from sys.tables st
+                inner join sys.columns sc on st.object_id = sc.object_id
+	            inner join INFORMATION_SCHEMA.COLUMNS isc on isc.COLUMN_NAME=sc.name and isc.TABLE_NAME=st.name
+                left join sys.extended_properties sep on st.object_id = sep.major_id
+                                                     and sc.column_id = sep.minor_id
+                                                     and sep.name = 'MS_Description'
+                where st.name in @TableNames
+	            order by st.name,sc.name
+                ", new { TableNames = TableNames });
+                return result.ToList();
             }
         }
         public static string GetConnectionString(string serverName,
@@ -53,7 +92,7 @@ namespace SQLDesctionEditor.Lib.Model
             {
                 case DbBase.SQLServer:
                     return generateString(entity.ServerName, entity.WindowsAuthentication,
-                            entity.UserId, entity.Password, type);
+                            entity.UserId, entity.Password, type,entity.DbName);
                 case DbBase.MySQL:
                     return "";
                 case DbBase.Oracle:
@@ -86,13 +125,15 @@ namespace SQLDesctionEditor.Lib.Model
             }
 
         }
-        private static string generateString(string serverName, bool isWindowsAuth, string userId, string password, DbBase type)
+        private static string generateString(string serverName, bool isWindowsAuth, string userId, string password, DbBase type,string dbname="")
         {
             var stringbuilder = new System.Data.SqlClient.SqlConnectionStringBuilder()
             {
                 DataSource = serverName,
                 InitialCatalog = Configure.DEFAULT_DATABASE_NAME
             };
+            if (!string.IsNullOrEmpty(dbname))
+                stringbuilder.InitialCatalog = dbname;
             if (!isWindowsAuth)
             {
                 stringbuilder.UserID = userId;

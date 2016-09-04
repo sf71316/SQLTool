@@ -32,7 +32,7 @@
             this.cbDbContext = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnImport = new System.Windows.Forms.Button();
+            this.btncreate = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tbprojname = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -76,17 +76,18 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Connection Name";
             // 
-            // btnImport
+            // btncreate
             // 
-            this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnImport.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnImport.Enabled = false;
-            this.btnImport.Location = new System.Drawing.Point(263, 129);
-            this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(75, 23);
-            this.btnImport.TabIndex = 6;
-            this.btnImport.Text = "Create";
-            this.btnImport.UseVisualStyleBackColor = true;
+            this.btncreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btncreate.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btncreate.Enabled = false;
+            this.btncreate.Location = new System.Drawing.Point(263, 129);
+            this.btncreate.Name = "btncreate";
+            this.btncreate.Size = new System.Drawing.Size(75, 23);
+            this.btncreate.TabIndex = 6;
+            this.btncreate.Text = "Create";
+            this.btncreate.UseVisualStyleBackColor = true;
+            this.btncreate.Click += new System.EventHandler(this.btncreate_Click);
             // 
             // label3
             // 
@@ -112,7 +113,7 @@
             this.ClientSize = new System.Drawing.Size(351, 164);
             this.Controls.Add(this.tbprojname);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.btnImport);
+            this.Controls.Add(this.btncreate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbDbContext);
@@ -135,7 +136,7 @@
         private System.Windows.Forms.ComboBox cbDbContext;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.Button btncreate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbprojname;
     }

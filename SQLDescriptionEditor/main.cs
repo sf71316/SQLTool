@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLDesctionEditor.Lib.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,7 +33,39 @@ namespace SQLDescriptionEditor
             if (result == DialogResult.OK)
             {
                 var frm =new newprojfrm(saveFileDialog.FileName);
-                frm.ShowDialog();
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    this.MdiChildren.ToList().ForEach(p => p.Close());
+                    frm.Project.SavePath = saveFileDialog.FileName;
+                    var editor = new editor(frm.Project);
+                    editor.MdiParent = this;
+                    editor.Dock = DockStyle.Fill;
+                    editor.WindowState = FormWindowState.Maximized;
+                    editor.TopLevel = false;
+                    editor.Show();
+                }
+
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode);
+        }
+
+        private async void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.MdiChildren.ToList().ForEach(p => p.Close());
+                ProjectModel model = new ProjectModel();
+                var project = await model.LoadAsync(openFileDialog.FileName);
+                var editor = new editor(project);
+                editor.MdiParent = this;
+                editor.Dock = DockStyle.Fill;
+                editor.WindowState = FormWindowState.Maximized;
+                editor.TopLevel = false;
+                editor.Show();
             }
         }
     }

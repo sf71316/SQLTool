@@ -8,7 +8,7 @@ namespace SQLDesctionEditor.Lib.Entity
 {
     public class TableEntity
     {
-        public string TableName { get; set; }
+        public string Table_Name { get; set; }
         public IList<TableColumnEntity> Columns { get; set; }
     }
 }
