@@ -14,7 +14,10 @@ namespace SQLDesctionEditor.Lib.Entity
         private string _Description;
         [JsonIgnore]
         public string Table { get; set; }
+        [JsonIgnore]
+        public int Object_id { get; set; }
         public string Column { get; set; }
+        public int Column_id { get; set; }
         public string DataType { get; set; }
         public int Length { get; set; }
         public string ISNULLABLE { get; set; }

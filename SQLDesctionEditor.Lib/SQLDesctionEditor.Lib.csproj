@@ -61,6 +61,9 @@
     <Compile Include="Entity\ProjectEntity.cs" />
     <Compile Include="Entity\TableColumnEntity.cs" />
     <Compile Include="Entity\TableEntity.cs" />
+    <Compile Include="Model\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Model\ConfigureModel.cs" />
     <Compile Include="Model\DataBaseghost.cs" />
     <Compile Include="Model\DbBase.cs" />

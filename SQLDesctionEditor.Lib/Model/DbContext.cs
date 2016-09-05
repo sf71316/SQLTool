@@ -20,12 +20,6 @@ namespace SQLDesctionEditor.Lib.Model
             this.InitDataBase(GetConnectionString(Entity));
          
         }
-        public void ChangeDataBase(string DbName)
-        {
-            this.Provider.Connection.Open();
-            this.Provider.Connection.ChangeDatabase(DbName);
-            this.Provider.Connection.Close();
-        }
         public IList<string> GetDataBases()
         {
             using (var conn = this.Provider.GenerateConnection())
@@ -55,6 +49,8 @@ namespace SQLDesctionEditor.Lib.Model
                 select distinct
                     st.name [Table],
                     sc.name [Column],
+	                sc.object_id,
+					sc.column_id,
 		            COLUMN_DEFAULT ColumnDefault,isc.IS_NULLABLE ISNULLABLE,DATA_TYPE DataType,CHARACTER_MAXIMUM_LENGTH [Length],
                     sep.value [Description]
                 from sys.tables st

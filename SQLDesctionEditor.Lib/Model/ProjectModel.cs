@@ -50,7 +50,7 @@ namespace SQLDesctionEditor.Lib.Model
                 {
                    await Task.Run(() =>
                     {
-                        var content = JsonConvert.SerializeObject(data, Formatting.Indented);
+                        var content = JsonConvert.SerializeObject(data, Formatting.None);
                         File.WriteAllText(data.SavePath, content);
                     });
 

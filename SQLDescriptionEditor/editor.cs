@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SQLDescriptionEditor
 {
-    public partial class editor : Form
+    public partial class editor : BaseForm
     {
         public ProjectEntity Project { get; private set; }
 
@@ -29,7 +29,7 @@ namespace SQLDescriptionEditor
         private void editor_Load(object sender, EventArgs e)
         {
             LoadTableList();
-            
+            this.ActiveControl = lbTableList;
         }
 
         private void LoadTableList(string keyword = "")
@@ -60,8 +60,8 @@ namespace SQLDescriptionEditor
                 if (!string.IsNullOrEmpty(OrderBy))
                     tableschemaContext.Sort = OrderBy;
                 dgvTableschema.DataSource = tableschemaContext;
-                lblTableName.DataBindings.Clear();
-                lblTableName.DataBindings.Add("Text", table, "Table_Name");
+                tbtableName.DataBindings.Clear();
+                tbtableName.DataBindings.Add("Text", table, "Table_Name");
                 tbDescritpion.DataBindings.Clear();
                 tbDescritpion.DataBindings.Add("Text", table, "Description",false,DataSourceUpdateMode.OnPropertyChanged);
                 

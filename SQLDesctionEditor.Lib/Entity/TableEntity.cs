@@ -14,6 +14,7 @@ namespace SQLDesctionEditor.Lib.Entity
         private string _Description;
 
         public string Table_Name { get; set; }
+        public int Object_id { get; set; }
         public string Description
         {
             get
