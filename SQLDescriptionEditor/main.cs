@@ -66,13 +66,19 @@ namespace SQLDescriptionEditor
                 this.MdiChildren.ToList().ForEach(p => p.Close());
                 ProjectModel model = new ProjectModel();
                 var project = await model.LoadAsync(openFileDialog.FileName);
-                editor = new editor(project);
-                editor.MdiParent = this;
-                editor.Dock = DockStyle.Fill;
-                editor.WindowState = FormWindowState.Maximized;
-                editor.TopLevel = false;
-                editor.Show();
-                this.SaveStripMenuItem.Enabled = true;
+                if (project != null)
+                {
+                    editor = new editor(project);
+                    editor.MdiParent = this;
+                    editor.Dock = DockStyle.Fill;
+                    editor.WindowState = FormWindowState.Maximized;
+                    editor.TopLevel = false;
+                    editor.Show();
+                    this.SaveStripMenuItem.Enabled = true;
+                }else
+                {
+                    MessageBox.Show("this file can't open.","Error");
+                }
             }
         }
 

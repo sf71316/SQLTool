@@ -15,7 +15,7 @@ namespace SQLDescriptionEditor
     public partial class editor : BaseForm
     {
         public ProjectEntity Project { get; private set; }
-
+        BindingSource tableschemaContext;
         public editor()
         {
             InitializeComponent();
@@ -55,7 +55,7 @@ namespace SQLDescriptionEditor
                .FirstOrDefault(p => p.Table_Name == lbTableList.SelectedValue.ToString());
             if (table != null)
             {
-                BindingSource tableschemaContext = new BindingSource();
+                tableschemaContext = new BindingSource();
                 tableschemaContext.DataSource = table.Columns;
                 if (!string.IsNullOrEmpty(OrderBy))
                     tableschemaContext.Sort = OrderBy;
@@ -64,6 +64,7 @@ namespace SQLDescriptionEditor
                 tbtableName.DataBindings.Add("Text", table, "Table_Name");
                 tbDescritpion.DataBindings.Clear();
                 tbDescritpion.DataBindings.Add("Text", table, "Description", false, DataSourceUpdateMode.OnPropertyChanged);
+
 
             }
         }
@@ -96,6 +97,19 @@ namespace SQLDescriptionEditor
             //    this.dgvTableschema.ClearSelection();
             //    this.dgvTableschema.CurrentCell = this.dgvTableschema[colindex, rowindex];
             //}
+        }
+
+        private void toolbtnupdate_Click(object sender, EventArgs e)
+        {
+            var table = Project.Tables
+               .FirstOrDefault(p => p.Table_Name == lbTableList.SelectedValue.ToString());
+            var updatefrm = new Updateschema(table);
+            updatefrm.ShowDialog();
+            if (tableschemaContext != null)
+            {
+                tableschemaContext.ResetBindings(false);
+                LoadTableList(tbKeyword.Text);
+            }
         }
     }
 }

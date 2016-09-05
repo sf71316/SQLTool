@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(editor));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.spcLeft = new System.Windows.Forms.SplitContainer();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tbKeyword = new System.Windows.Forms.TextBox();
             this.lbTableList = new System.Windows.Forms.ListBox();
             this.tbtableName = new System.Windows.Forms.TextBox();
@@ -38,13 +39,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbDescritpion = new System.Windows.Forms.TextBox();
             this.dgvTableschema = new System.Windows.Forms.DataGridView();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ISNULLABLE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnDefault = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolbtnupdate = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -53,8 +55,9 @@
             this.spcLeft.Panel1.SuspendLayout();
             this.spcLeft.Panel2.SuspendLayout();
             this.spcLeft.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -69,6 +72,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
             this.splitContainer1.Panel2.Controls.Add(this.tbtableName);
             this.splitContainer1.Panel2.Controls.Add(this.lbdelete);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
@@ -98,6 +102,15 @@
             this.spcLeft.SplitterDistance = 40;
             this.spcLeft.TabIndex = 0;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(8, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
             // tbKeyword
             // 
             this.tbKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -124,7 +137,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbtableName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbtableName.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.tbtableName.Location = new System.Drawing.Point(17, 7);
+            this.tbtableName.Location = new System.Drawing.Point(17, 30);
             this.tbtableName.Name = "tbtableName";
             this.tbtableName.ReadOnly = true;
             this.tbtableName.Size = new System.Drawing.Size(418, 19);
@@ -135,7 +148,7 @@
             this.lbdelete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbdelete.AutoSize = true;
-            this.lbdelete.Location = new System.Drawing.Point(451, 47);
+            this.lbdelete.Location = new System.Drawing.Point(451, 70);
             this.lbdelete.Name = "lbdelete";
             this.lbdelete.Size = new System.Drawing.Size(106, 12);
             this.lbdelete.TabIndex = 5;
@@ -146,7 +159,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 47);
+            this.label1.Location = new System.Drawing.Point(12, 70);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 12);
             this.label1.TabIndex = 4;
@@ -154,7 +167,7 @@
             // 
             // tbDescritpion
             // 
-            this.tbDescritpion.Location = new System.Drawing.Point(83, 41);
+            this.tbDescritpion.Location = new System.Drawing.Point(83, 64);
             this.tbDescritpion.Name = "tbDescritpion";
             this.tbDescritpion.Size = new System.Drawing.Size(352, 22);
             this.tbDescritpion.TabIndex = 3;
@@ -175,22 +188,13 @@
             this.ColumnDefault,
             this.Description});
             this.dgvTableschema.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dgvTableschema.Location = new System.Drawing.Point(2, 69);
+            this.dgvTableschema.Location = new System.Drawing.Point(2, 92);
             this.dgvTableschema.Name = "dgvTableschema";
             this.dgvTableschema.RowTemplate.Height = 24;
             this.dgvTableschema.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvTableschema.Size = new System.Drawing.Size(650, 539);
+            this.dgvTableschema.Size = new System.Drawing.Size(650, 516);
             this.dgvTableschema.TabIndex = 1;
             this.dgvTableschema.SelectionChanged += new System.EventHandler(this.dgvTableschema_SelectionChanged);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(8, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
             // 
             // Column
             // 
@@ -246,6 +250,26 @@
             this.Description.MinimumWidth = 100;
             this.Description.Name = "Description";
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolbtnupdate});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(652, 25);
+            this.toolStrip1.TabIndex = 7;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolbtnupdate
+            // 
+            this.toolbtnupdate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbtnupdate.Image = ((System.Drawing.Image)(resources.GetObject("toolbtnupdate.Image")));
+            this.toolbtnupdate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbtnupdate.Name = "toolbtnupdate";
+            this.toolbtnupdate.Size = new System.Drawing.Size(23, 22);
+            this.toolbtnupdate.ToolTipText = "Update table schema";
+            this.toolbtnupdate.Click += new System.EventHandler(this.toolbtnupdate_Click);
+            // 
             // editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -272,8 +296,10 @@
             this.spcLeft.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spcLeft)).EndInit();
             this.spcLeft.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -296,5 +322,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ISNULLABLE;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDefault;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolbtnupdate;
     }
 }

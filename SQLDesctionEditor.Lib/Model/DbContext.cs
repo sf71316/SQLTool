@@ -18,7 +18,7 @@ namespace SQLDesctionEditor.Lib.Model
         public DbContext(ConnectionEntity Entity)
         {
             this.InitDataBase(GetConnectionString(Entity));
-         
+
         }
         public IList<string> GetDataBases()
         {
@@ -41,11 +41,13 @@ namespace SQLDesctionEditor.Lib.Model
             }
 
         }
-        public List<TableColumnEntity> GetColumns(string[] TableNames)
+        public List<TableColumnEntity> GetColumns(string[] TableNames = null, int[] Object_id = null)
         {
             using (var conn = this.Provider.GenerateConnection())
             {
-                var result = conn.Query<TableColumnEntity>(@"
+                if (TableNames != null)
+                {
+                    var result = conn.Query<TableColumnEntity>(@"
                 select distinct
                     st.name [Table],
                     sc.name [Column],
@@ -62,7 +64,28 @@ namespace SQLDesctionEditor.Lib.Model
                 where st.name in @TableNames AND is_ms_shipped=0
 	            order by st.name,sc.name
                 ", new { TableNames = TableNames });
-                return result.ToList();
+                    return result.ToList();
+                }else
+                {
+                    var result = conn.Query<TableColumnEntity>(@"
+                select distinct
+                    st.name [Table],
+                    sc.name [Column],
+	                sc.object_id,
+					sc.column_id,
+		            COLUMN_DEFAULT ColumnDefault,isc.IS_NULLABLE ISNULLABLE,DATA_TYPE DataType,CHARACTER_MAXIMUM_LENGTH [Length],
+                    sep.value [Description]
+                from sys.tables st
+                inner join sys.columns sc on st.object_id = sc.object_id
+	            inner join INFORMATION_SCHEMA.COLUMNS isc on isc.COLUMN_NAME=sc.name and isc.TABLE_NAME=st.name
+                left join sys.extended_properties sep on st.object_id = sep.major_id
+                                                     and sc.column_id = sep.minor_id
+                                                     and sep.name = 'MS_Description'
+                where sc.object_id in @Object_id AND is_ms_shipped=0
+	            order by st.name,sc.name
+                ", new { Object_id = Object_id });
+                    return result.ToList();
+                }
             }
         }
         public static string GetConnectionString(string serverName,
@@ -87,7 +110,7 @@ namespace SQLDesctionEditor.Lib.Model
             {
                 case DbBase.SQLServer:
                     return generateString(entity.ServerName, entity.WindowsAuthentication,
-                            entity.UserId, entity.Password, type,entity.DbName);
+                            entity.UserId, entity.Password, type, entity.DbName);
                 case DbBase.MySQL:
                     return "";
                 case DbBase.Oracle:
@@ -121,7 +144,7 @@ namespace SQLDesctionEditor.Lib.Model
             }
 
         }
-        private static string generateString(string serverName, bool isWindowsAuth, string userId, string password, DbBase type,string dbname="")
+        private static string generateString(string serverName, bool isWindowsAuth, string userId, string password, DbBase type, string dbname = "")
         {
             var stringbuilder = new System.Data.SqlClient.SqlConnectionStringBuilder()
             {
@@ -144,7 +167,7 @@ namespace SQLDesctionEditor.Lib.Model
 
         public void Dispose()
         {
-            
+
         }
     }
 }

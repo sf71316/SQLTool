@@ -29,6 +29,7 @@ namespace SQLDesctionEditor.Lib.Model
 
                 foreach (var item in _tables)
                 {
+                    item.Object_id = _columns.First().Object_id;
                     var columns = _columns.Where(p => p.Table == item.Table_Name);
                     item.Columns = new BindingList<TableColumnEntity>(
                         columns.ToList());

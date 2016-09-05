@@ -31,8 +31,14 @@ namespace SQLDesctionEditor.Lib.Model
         {
             var project = await Task.Run(() =>
             {
-                return JsonConvert.DeserializeObject<ProjectEntity>(
-                 File.ReadAllText(FilePath));
+                try
+                {
+                    return JsonConvert.DeserializeObject<ProjectEntity>(
+                     File.ReadAllText(FilePath));
+                }catch
+                {
+                    return null;
+                }
             });
             return project;
         }
@@ -48,11 +54,11 @@ namespace SQLDesctionEditor.Lib.Model
                 }
                 if (_isallow)
                 {
-                   await Task.Run(() =>
-                    {
-                        var content = JsonConvert.SerializeObject(data, Formatting.None);
-                        File.WriteAllText(data.SavePath, content);
-                    });
+                    await Task.Run(() =>
+                     {
+                         var content = JsonConvert.SerializeObject(data, Formatting.Indented);
+                         File.WriteAllText(data.SavePath, content);
+                     });
 
                 }
                 return true;
@@ -63,5 +69,60 @@ namespace SQLDesctionEditor.Lib.Model
             }
         }
         public Func<bool> FileExist { get; set; }
+
+        public void UpdateSchema(TableEntity _table, bool iswithoutdesc, ConnectionEntity _config)
+        {
+            using (DbContext db = new Model.DbContext(_config))
+            {
+                this.OnNotify("get column data....");
+                var columns = db.GetColumns(Object_id: new int[] { _table.Object_id });
+                if (columns.Count > 0)
+                {
+                    this.OnNotify("begin compare data....");
+                    var t = columns.First();
+                    if (_table.Table_Name != t.Table)
+                    {
+                        _table.Table_Name = t.Table;
+                    }
+                    foreach (var item in _table.Columns)
+                    {
+                        var source = columns.FirstOrDefault(p => p.Column_id == item.Column_id);
+                        if (source != null)
+                        {
+                            item.Column = source.Column;
+                            item.ColumnDefault = source.ColumnDefault;
+                            item.DataType = source.DataType;
+                            item.Length = source.Length;
+                            item.ISNULLABLE = source.ISNULLABLE;
+                            if (!iswithoutdesc)
+                                item.Description = source.Description;
+                        }
+                    }
+                    var newcolumns = columns.Select(p => p.Column_id).ToList().Except(
+                            _table.Columns.Select(p => p.Column_id)
+                        );
+                    var removecolumns = _table.Columns.Select(p => p.Column_id).ToList().Except(
+                            columns.Select(p => p.Column_id)
+                        );
+                    // add columns
+                    columns.Where(p => newcolumns.Contains(p.Column_id)).ToList().ForEach(p=> {
+                        _table.Columns.Add(p);
+                    });
+                    //remove columns
+                    for (int i = 0; i < _table.Columns.Count; i++)
+                    {
+                        if (removecolumns.Contains(_table.Columns[i].Column_id))
+                        {
+                            _table.Columns.RemoveAt(i);
+                        }
+                    }
+                    this.OnNotify("Complete.");
+                }
+                else
+                {
+                    this.OnNotify("not find table please try again.");
+                }
+            }
+        }
     }
 }
