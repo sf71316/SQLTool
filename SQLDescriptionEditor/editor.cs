@@ -63,8 +63,8 @@ namespace SQLDescriptionEditor
                 tbtableName.DataBindings.Clear();
                 tbtableName.DataBindings.Add("Text", table, "Table_Name");
                 tbDescritpion.DataBindings.Clear();
-                tbDescritpion.DataBindings.Add("Text", table, "Description",false,DataSourceUpdateMode.OnPropertyChanged);
-                
+                tbDescritpion.DataBindings.Add("Text", table, "Description", false, DataSourceUpdateMode.OnPropertyChanged);
+
             }
         }
 
@@ -77,7 +77,7 @@ namespace SQLDescriptionEditor
         {
             var table = Project.Tables
                .FirstOrDefault(p => p.Table_Name == lbTableList.SelectedValue.ToString());
-            if(MessageBox.Show("Are you sure to delete this item ??",                                     "Confirm Delete!!",
+            if (MessageBox.Show("Are you sure to delete this item ??", "Confirm Delete!!",
                                      MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 var index = lbTableList.SelectedIndex;
@@ -85,6 +85,17 @@ namespace SQLDescriptionEditor
                 LoadTableList();
                 lbTableList.SelectedIndex = index;
             }
+        }
+
+        private void dgvTableschema_SelectionChanged(object sender, EventArgs e)
+        {
+            //if (this.dgvTableschema.CurrentCell.ColumnIndex != this.dgvTableschema.Columns.Count - 1)
+            //{
+            //    int rowindex = this.dgvTableschema.CurrentCell.RowIndex;
+            //    int colindex = this.dgvTableschema.CurrentCell.ColumnIndex;
+            //    this.dgvTableschema.ClearSelection();
+            //    this.dgvTableschema.CurrentCell = this.dgvTableschema[colindex, rowindex];
+            //}
         }
     }
 }

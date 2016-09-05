@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(editor));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.spcLeft = new System.Windows.Forms.SplitContainer();
             this.tbKeyword = new System.Windows.Forms.TextBox();
@@ -37,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbDescritpion = new System.Windows.Forms.TextBox();
             this.dgvTableschema = new System.Windows.Forms.DataGridView();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,6 +54,7 @@
             this.spcLeft.Panel2.SuspendLayout();
             this.spcLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -85,6 +88,7 @@
             // 
             // spcLeft.Panel1
             // 
+            this.spcLeft.Panel1.Controls.Add(this.pictureBox1);
             this.spcLeft.Panel1.Controls.Add(this.tbKeyword);
             // 
             // spcLeft.Panel2
@@ -98,9 +102,9 @@
             // 
             this.tbKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbKeyword.Location = new System.Drawing.Point(7, 9);
+            this.tbKeyword.Location = new System.Drawing.Point(30, 9);
             this.tbKeyword.Name = "tbKeyword";
-            this.tbKeyword.Size = new System.Drawing.Size(187, 22);
+            this.tbKeyword.Size = new System.Drawing.Size(164, 22);
             this.tbKeyword.TabIndex = 1;
             // 
             // lbTableList
@@ -133,16 +137,16 @@
             this.lbdelete.AutoSize = true;
             this.lbdelete.Location = new System.Drawing.Point(451, 47);
             this.lbdelete.Name = "lbdelete";
-            this.lbdelete.Size = new System.Drawing.Size(63, 12);
+            this.lbdelete.Size = new System.Drawing.Size(106, 12);
             this.lbdelete.TabIndex = 5;
             this.lbdelete.TabStop = true;
-            this.lbdelete.Text = "Delete Table";
+            this.lbdelete.Text = "Remove table schema";
             this.lbdelete.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbdelete_LinkClicked);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 47);
+            this.label1.Location = new System.Drawing.Point(12, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 12);
             this.label1.TabIndex = 4;
@@ -177,12 +181,21 @@
             this.dgvTableschema.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvTableschema.Size = new System.Drawing.Size(650, 539);
             this.dgvTableschema.TabIndex = 1;
+            this.dgvTableschema.SelectionChanged += new System.EventHandler(this.dgvTableschema_SelectionChanged);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(8, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
             // 
             // Column
             // 
             this.Column.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
             this.Column.DataPropertyName = "Column";
-            this.Column.Frozen = true;
             this.Column.HeaderText = "Column Name";
             this.Column.MinimumWidth = 100;
             this.Column.Name = "Column";
@@ -229,6 +242,7 @@
             this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Description.DataPropertyName = "Description";
             this.Description.HeaderText = "Description";
+            this.Description.MaxInputLength = 1000;
             this.Description.MinimumWidth = 100;
             this.Description.Name = "Description";
             // 
@@ -241,6 +255,7 @@
             this.Controls.Add(this.splitContainer1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "editor";
@@ -258,6 +273,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.spcLeft)).EndInit();
             this.spcLeft.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -268,16 +284,17 @@
         private System.Windows.Forms.SplitContainer spcLeft;
         private System.Windows.Forms.ListBox lbTableList;
         private System.Windows.Forms.DataGridView dgvTableschema;
+        private System.Windows.Forms.TextBox tbDescritpion;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel lbdelete;
+        private System.Windows.Forms.TextBox tbKeyword;
+        private System.Windows.Forms.TextBox tbtableName;
+        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataType;
         private System.Windows.Forms.DataGridViewTextBoxColumn Length;
         private System.Windows.Forms.DataGridViewTextBoxColumn ISNULLABLE;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDefault;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.TextBox tbDescritpion;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.LinkLabel lbdelete;
-        private System.Windows.Forms.TextBox tbKeyword;
-        private System.Windows.Forms.TextBox tbtableName;
     }
 }
