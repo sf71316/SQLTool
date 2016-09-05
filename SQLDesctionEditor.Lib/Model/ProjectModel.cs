@@ -2,6 +2,7 @@
 using SQLDesctionEditor.Lib.Entity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,33 +18,13 @@ namespace SQLDesctionEditor.Lib.Model
         {
 
         }
-        public ProjectModel(string ConnectionName, string DbName)
-        {
-            this._connName = ConnectionName;
-            this._dbName = DbName;
-        }
-        public ProjectEntity Create()
+        public ProjectEntity Create(string ConnectionName, string DbName)
         {
             var proj = new ProjectEntity();
-            var config = ConfigureModel.Find(this._connName);
-            config.DbName = this._dbName;
-            using (DbContext db = new DbContext(config))
-            {
-                this.OnNotify("Loading tables....");
-                var _tables = db.GetTables();
-                this.OnNotify("Loading completed....");
-                this.OnNotify("Loading all columns....");
-                var _columns = db.GetColumns(_tables.Select(p => p.Table_Name).ToArray());
-                this.OnNotify("Loading completed....");
-                proj.ConnectionName = _connName;
-                proj.DbName = _dbName;
-                proj.Tables = _tables;
-                foreach (var item in proj.Tables)
-                {
-                    var columns = _columns.Where(p => p.Table == item.Table_Name);
-                    item.Columns = columns.ToList();
-                }
-            }
+            proj.ConnectionName = ConnectionName;
+            proj.DbName = DbName;
+            SchemaModel model = new Model.SchemaModel();
+            proj.Tables = model.GetAllTableSchema(ConnectionName, DbName);
             return proj;
         }
         public async Task<ProjectEntity> LoadAsync(string FilePath)

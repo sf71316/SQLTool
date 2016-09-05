@@ -81,7 +81,7 @@
             this.btncreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btncreate.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btncreate.Enabled = false;
-            this.btncreate.Location = new System.Drawing.Point(263, 129);
+            this.btncreate.Location = new System.Drawing.Point(263, 131);
             this.btncreate.Name = "btncreate";
             this.btncreate.Size = new System.Drawing.Size(75, 23);
             this.btncreate.TabIndex = 6;
@@ -110,7 +110,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(351, 164);
+            this.ClientSize = new System.Drawing.Size(351, 166);
             this.Controls.Add(this.tbprojname);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btncreate);

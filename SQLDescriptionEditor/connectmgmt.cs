@@ -21,6 +21,7 @@ namespace SQLDescriptionEditor
         {
             InitializeComponent();
             cbtemplate.SelectedIndex = 0;
+            Connections = ConfigureModel.GetDefaultConnectionList().ToList();
         }
 
         private void cbAuthmode_SelectedIndexChanged(object sender, EventArgs e)

@@ -72,8 +72,8 @@ namespace SQLDescriptionEditor
 
         private void btncreate_Click(object sender, EventArgs e)
         {
-            ProjectModel model = new ProjectModel(cbtemplate.SelectedValue.ToString(), cbDbContext.SelectedValue.ToString());
-            this.Project = model.Create();
+            ProjectModel model = new ProjectModel();
+            this.Project = model.Create(cbtemplate.SelectedValue.ToString(), cbDbContext.SelectedValue.ToString());
             this.Close();
         }
     }

@@ -13,9 +13,11 @@ namespace SQLDescriptionEditor
 {
     public partial class main : Form
     {
+        editor editor = null;
         public main()
         {
             InitializeComponent();
+            this.SaveStripMenuItem.Enabled = false;
         }
 
         private void connectionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -37,12 +39,13 @@ namespace SQLDescriptionEditor
                 {
                     this.MdiChildren.ToList().ForEach(p => p.Close());
                     frm.Project.SavePath = saveFileDialog.FileName;
-                    var editor = new editor(frm.Project);
+                    editor = new editor(frm.Project);
                     editor.MdiParent = this;
                     editor.Dock = DockStyle.Fill;
                     editor.WindowState = FormWindowState.Maximized;
                     editor.TopLevel = false;
                     editor.Show();
+                    this.SaveStripMenuItem.Enabled = true;
                 }
 
             }
@@ -60,13 +63,35 @@ namespace SQLDescriptionEditor
                 this.MdiChildren.ToList().ForEach(p => p.Close());
                 ProjectModel model = new ProjectModel();
                 var project = await model.LoadAsync(openFileDialog.FileName);
-                var editor = new editor(project);
+                editor = new editor(project);
                 editor.MdiParent = this;
                 editor.Dock = DockStyle.Fill;
                 editor.WindowState = FormWindowState.Maximized;
                 editor.TopLevel = false;
                 editor.Show();
+                this.SaveStripMenuItem.Enabled = true;
             }
+        }
+
+        private async void SaveStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editor != null)
+            {
+                ProjectModel model = new ProjectModel();
+                if (await model.SaveAsync(editor.Project))
+                {
+                    MessageBox.Show("Save succeeded.");
+                }
+                else
+                {
+                    MessageBox.Show("Save failure.");
+                }
+            }
+        }
+
+        private void main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode);
         }
     }
 }

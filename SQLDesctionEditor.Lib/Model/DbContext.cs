@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using General.Data;
 using SQLDesctionEditor.Lib.Entity;
 using Dapper;
 
 namespace SQLDesctionEditor.Lib.Model
 {
-    public class DbContext : DataBase, IDisposable
+    public class DbContext : DataBaseghost, IDisposable
     {
         public DbContext()
         {
@@ -64,7 +63,7 @@ namespace SQLDesctionEditor.Lib.Model
                 left join sys.extended_properties sep on st.object_id = sep.major_id
                                                      and sc.column_id = sep.minor_id
                                                      and sep.name = 'MS_Description'
-                where st.name in @TableNames
+                where st.name in @TableNames AND is_ms_shipped=0
 	            order by st.name,sc.name
                 ", new { TableNames = TableNames });
                 return result.ToList();
@@ -106,6 +105,7 @@ namespace SQLDesctionEditor.Lib.Model
         {
             this.GenerateDataBase(connectstring, type);
         }
+
         public async static Task<bool> TestConnect(string connectionstring, SQLType type = SQLType.MSSQL)
         {
             var db = new DbContext();
@@ -146,5 +146,9 @@ namespace SQLDesctionEditor.Lib.Model
             return stringbuilder.ConnectionString;
         }
 
+        public void Dispose()
+        {
+            
+        }
     }
 }

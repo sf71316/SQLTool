@@ -14,27 +14,29 @@ namespace SQLDescriptionEditor
 {
     public partial class editor : Form
     {
-        private ProjectEntity _project;
+        public ProjectEntity Project { get; private set; }
 
         public editor()
         {
             InitializeComponent();
+            this.dgvTableschema.AutoGenerateColumns = false;
         }
         public editor(ProjectEntity project) : this()
         {
-            this._project = project;
+            this.Project = project;
         }
 
         private void editor_Load(object sender, EventArgs e)
         {
             LoadTableList();
+            
         }
 
         private void LoadTableList(string keyword = "")
         {
             lbTableList.DisplayMember = "Table_Name";
             lbTableList.ValueMember = "Table_Name";
-            lbTableList.DataSource = this._project.Tables
+            lbTableList.DataSource = this.Project.Tables
                 .Where(p => p.Table_Name.ToLower().Contains(keyword.ToLower())).ToList();
         }
 
@@ -43,15 +45,45 @@ namespace SQLDescriptionEditor
             LoadTableList(this.tbKeyword.Text);
         }
 
-        private async void btnSave_Click(object sender, EventArgs e)
+        private void lbTableList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ProjectModel model = new ProjectModel();
-            if(await model.SaveAsync(_project))
+            this.BindData();
+        }
+        private void BindData(string OrderBy = "")
+        {
+            var table = Project.Tables
+               .FirstOrDefault(p => p.Table_Name == lbTableList.SelectedValue.ToString());
+            if (table != null)
             {
-                MessageBox.Show("Save succeeded.");
-            }else
+                BindingSource tableschemaContext = new BindingSource();
+                tableschemaContext.DataSource = table.Columns;
+                if (!string.IsNullOrEmpty(OrderBy))
+                    tableschemaContext.Sort = OrderBy;
+                dgvTableschema.DataSource = tableschemaContext;
+                lblTableName.DataBindings.Clear();
+                lblTableName.DataBindings.Add("Text", table, "Table_Name");
+                tbDescritpion.DataBindings.Clear();
+                tbDescritpion.DataBindings.Add("Text", table, "Description",false,DataSourceUpdateMode.OnPropertyChanged);
+                
+            }
+        }
+
+        private void dgvTableschema_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            //this.BindData(dgvTableschema.Columns[e.ColumnIndex].DataPropertyName);
+        }
+
+        private void lbdelete_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var table = Project.Tables
+               .FirstOrDefault(p => p.Table_Name == lbTableList.SelectedValue.ToString());
+            if(MessageBox.Show("Are you sure to delete this item ??",                                     "Confirm Delete!!",
+                                     MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                MessageBox.Show("Save failure.");
+                var index = lbTableList.SelectedIndex;
+                Project.Tables.Remove(table);
+                LoadTableList();
+                lbTableList.SelectedIndex = index;
             }
         }
     }

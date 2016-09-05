@@ -38,17 +38,12 @@
       <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="General">
-      <HintPath>..\..\dll\General.dll</HintPath>
-    </Reference>
-    <Reference Include="General.Data">
-      <HintPath>..\..\dll\General.Data.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -67,10 +62,12 @@
     <Compile Include="Entity\TableColumnEntity.cs" />
     <Compile Include="Entity\TableEntity.cs" />
     <Compile Include="Model\ConfigureModel.cs" />
+    <Compile Include="Model\DataBaseghost.cs" />
     <Compile Include="Model\DbBase.cs" />
     <Compile Include="Model\DbContext.cs" />
     <Compile Include="Model\Notification.cs" />
     <Compile Include="Model\ProjectModel.cs" />
+    <Compile Include="Model\SchemaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
