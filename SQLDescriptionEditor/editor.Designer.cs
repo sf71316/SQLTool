@@ -37,7 +37,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolbtnupdate = new System.Windows.Forms.ToolStripButton();
             this.tbtableName = new System.Windows.Forms.TextBox();
-            this.lbdelete = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.tbDescritpion = new System.Windows.Forms.TextBox();
             this.dgvTableschema = new System.Windows.Forms.DataGridView();
@@ -47,6 +46,7 @@
             this.ISNULLABLE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnDefault = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStripRemoveTableButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -74,7 +74,6 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
             this.splitContainer1.Panel2.Controls.Add(this.tbtableName);
-            this.splitContainer1.Panel2.Controls.Add(this.lbdelete);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.tbDescritpion);
             this.splitContainer1.Panel2.Controls.Add(this.dgvTableschema);
@@ -134,7 +133,8 @@
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolbtnupdate});
+            this.toolbtnupdate,
+            this.toolStripRemoveTableButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(652, 25);
@@ -162,19 +162,6 @@
             this.tbtableName.ReadOnly = true;
             this.tbtableName.Size = new System.Drawing.Size(418, 19);
             this.tbtableName.TabIndex = 6;
-            // 
-            // lbdelete
-            // 
-            this.lbdelete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbdelete.AutoSize = true;
-            this.lbdelete.Location = new System.Drawing.Point(451, 70);
-            this.lbdelete.Name = "lbdelete";
-            this.lbdelete.Size = new System.Drawing.Size(106, 12);
-            this.lbdelete.TabIndex = 5;
-            this.lbdelete.TabStop = true;
-            this.lbdelete.Text = "Remove table schema";
-            this.lbdelete.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbdelete_LinkClicked);
             // 
             // label1
             // 
@@ -214,7 +201,7 @@
             this.dgvTableschema.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvTableschema.Size = new System.Drawing.Size(650, 516);
             this.dgvTableschema.TabIndex = 1;
-            this.dgvTableschema.SelectionChanged += new System.EventHandler(this.dgvTableschema_SelectionChanged);
+            this.dgvTableschema.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvTableschema_EditingControlShowing);
             // 
             // Column
             // 
@@ -270,6 +257,16 @@
             this.Description.MinimumWidth = 100;
             this.Description.Name = "Description";
             // 
+            // toolStripRemoveTableButton
+            // 
+            this.toolStripRemoveTableButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripRemoveTableButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripRemoveTableButton.Image")));
+            this.toolStripRemoveTableButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripRemoveTableButton.Name = "toolStripRemoveTableButton";
+            this.toolStripRemoveTableButton.Size = new System.Drawing.Size(23, 22);
+            this.toolStripRemoveTableButton.ToolTipText = "Remove this table schema";
+            this.toolStripRemoveTableButton.Click += new System.EventHandler(this.toolStripRemoveTableButton_Click);
+            // 
             // editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -311,7 +308,6 @@
         private System.Windows.Forms.DataGridView dgvTableschema;
         private System.Windows.Forms.TextBox tbDescritpion;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.LinkLabel lbdelete;
         private System.Windows.Forms.TextBox tbKeyword;
         private System.Windows.Forms.TextBox tbtableName;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -323,5 +319,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolbtnupdate;
+        private System.Windows.Forms.ToolStripButton toolStripRemoveTableButton;
     }
 }

@@ -30,7 +30,7 @@ namespace SQLDescriptionEditor
         {
             LoadTableList();
             this.ActiveControl = lbTableList;
-            this.Text +="- "+ Project.ProjectName;
+            this.Text += "- " + Project.ProjectName;
         }
 
         private void LoadTableList(string keyword = "")
@@ -75,38 +75,13 @@ namespace SQLDescriptionEditor
             //this.BindData(dgvTableschema.Columns[e.ColumnIndex].DataPropertyName);
         }
 
-        private void lbdelete_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            var table = Project.Tables
-               .FirstOrDefault(p => p.Table_Name == lbTableList.SelectedValue.ToString());
-            if (MessageBox.Show("Are you sure to delete this item ??", "Confirm Delete!!",
-                                     MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                var index = lbTableList.SelectedIndex;
-                Project.Tables.Remove(table);
-                LoadTableList();
-                lbTableList.SelectedIndex = index;
-            }
-        }
-
-        private void dgvTableschema_SelectionChanged(object sender, EventArgs e)
-        {
-            //if (this.dgvTableschema.CurrentCell.ColumnIndex != this.dgvTableschema.Columns.Count - 1)
-            //{
-            //    int rowindex = this.dgvTableschema.CurrentCell.RowIndex;
-            //    int colindex = this.dgvTableschema.CurrentCell.ColumnIndex;
-            //    this.dgvTableschema.ClearSelection();
-            //    this.dgvTableschema.CurrentCell = this.dgvTableschema[colindex, rowindex];
-            //}
-        }
-
         private void toolbtnupdate_Click(object sender, EventArgs e)
         {
             var table = Project.Tables
                .FirstOrDefault(p => p.Table_Name == lbTableList.SelectedValue.ToString());
-           var _config= ConfigureModel.Find(Project.ConnectionName);
-           _config.DbName = Project.DbName;
-           var updatefrm = new Updateschema(table, _config);
+            var _config = ConfigureModel.Find(Project.ConnectionName);
+            _config.DbName = Project.DbName;
+            var updatefrm = new Updateschema(table, _config);
             updatefrm.ShowDialog();
             if (tableschemaContext != null)
             {
@@ -128,7 +103,36 @@ namespace SQLDescriptionEditor
         private void editor_Leave(object sender, EventArgs e)
         {
             if (this.Edited != null)
-                this.Edited(this,new EventArgs());
+                this.Edited(this, new EventArgs());
         }
+
+        private void toolStripRemoveTableButton_Click(object sender, EventArgs e)
+        {
+            var table = Project.Tables
+             .FirstOrDefault(p => p.Table_Name == lbTableList.SelectedValue.ToString());
+            if (MessageBox.Show("Are you sure to delete this item ??", "Confirm Delete!!",
+                                     MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                var index = lbTableList.SelectedIndex;
+                Project.Tables.Remove(table);
+                LoadTableList();
+                lbTableList.SelectedIndex = index;
+            }
+        }
+
+        private void dgvTableschema_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            //TextBox autoText = e.Control as TextBox;
+            //if (autoText != null)
+            //{
+            //    autoText.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            //    autoText.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            //    AutoCompleteStringCollection DataCollection = new AutoCompleteStringCollection();
+            //    addItems(DataCollection);
+            //    autoText.AutoCompleteCustomSource = DataCollection;
+            //}
+        }
+        
+
     }
 }
