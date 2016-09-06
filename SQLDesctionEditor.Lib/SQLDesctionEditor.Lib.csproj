@@ -71,6 +71,7 @@
     <Compile Include="Model\Notification.cs" />
     <Compile Include="Model\ProjectModel.cs" />
     <Compile Include="Model\SchemaModel.cs" />
+    <Compile Include="Model\SubFormTransferArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

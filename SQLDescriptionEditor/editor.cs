@@ -30,6 +30,7 @@ namespace SQLDescriptionEditor
         {
             LoadTableList();
             this.ActiveControl = lbTableList;
+            this.Text +="- "+ Project.ProjectName;
         }
 
         private void LoadTableList(string keyword = "")
@@ -103,13 +104,31 @@ namespace SQLDescriptionEditor
         {
             var table = Project.Tables
                .FirstOrDefault(p => p.Table_Name == lbTableList.SelectedValue.ToString());
-            var updatefrm = new Updateschema(table);
+           var _config= ConfigureModel.Find(Project.ConnectionName);
+           _config.DbName = Project.DbName;
+           var updatefrm = new Updateschema(table, _config);
             updatefrm.ShowDialog();
             if (tableschemaContext != null)
             {
+                int currentindex = this.lbTableList.SelectedIndex;
                 tableschemaContext.ResetBindings(false);
                 LoadTableList(tbKeyword.Text);
+                this.lbTableList.SelectedIndex = currentindex;
             }
+        }
+
+        private void editor_Enter(object sender, EventArgs e)
+        {
+            if (this.Editing != null)
+                this.Editing(this, new SubFormTransferArgs { Project = this.Project });
+        }
+        public event EventHandler<SubFormTransferArgs> Editing;
+        public event EventHandler<EventArgs> Edited;
+
+        private void editor_Leave(object sender, EventArgs e)
+        {
+            if (this.Edited != null)
+                this.Edited(this,new EventArgs());
         }
     }
 }

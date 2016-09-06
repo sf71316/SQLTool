@@ -34,6 +34,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tbKeyword = new System.Windows.Forms.TextBox();
             this.lbTableList = new System.Windows.Forms.ListBox();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolbtnupdate = new System.Windows.Forms.ToolStripButton();
             this.tbtableName = new System.Windows.Forms.TextBox();
             this.lbdelete = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,8 +47,6 @@
             this.ISNULLABLE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnDefault = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolbtnupdate = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -56,8 +56,8 @@
             this.spcLeft.Panel2.SuspendLayout();
             this.spcLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -130,6 +130,26 @@
             this.lbTableList.Size = new System.Drawing.Size(203, 567);
             this.lbTableList.TabIndex = 1;
             this.lbTableList.SelectedIndexChanged += new System.EventHandler(this.lbTableList_SelectedIndexChanged);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolbtnupdate});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(652, 25);
+            this.toolStrip1.TabIndex = 7;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolbtnupdate
+            // 
+            this.toolbtnupdate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbtnupdate.Image = ((System.Drawing.Image)(resources.GetObject("toolbtnupdate.Image")));
+            this.toolbtnupdate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbtnupdate.Name = "toolbtnupdate";
+            this.toolbtnupdate.Size = new System.Drawing.Size(23, 22);
+            this.toolbtnupdate.ToolTipText = "Update table schema";
+            this.toolbtnupdate.Click += new System.EventHandler(this.toolbtnupdate_Click);
             // 
             // tbtableName
             // 
@@ -250,41 +270,20 @@
             this.Description.MinimumWidth = 100;
             this.Description.Name = "Description";
             // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolbtnupdate});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(652, 25);
-            this.toolStrip1.TabIndex = 7;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolbtnupdate
-            // 
-            this.toolbtnupdate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolbtnupdate.Image = ((System.Drawing.Image)(resources.GetObject("toolbtnupdate.Image")));
-            this.toolbtnupdate.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolbtnupdate.Name = "toolbtnupdate";
-            this.toolbtnupdate.Size = new System.Drawing.Size(23, 22);
-            this.toolbtnupdate.ToolTipText = "Update table schema";
-            this.toolbtnupdate.Click += new System.EventHandler(this.toolbtnupdate_Click);
-            // 
             // editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(859, 611);
-            this.ControlBox = false;
             this.Controls.Add(this.splitContainer1);
-            this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "editor";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Table  Editor";
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.Activated += new System.EventHandler(this.editor_Enter);
+            this.Deactivate += new System.EventHandler(this.editor_Leave);
             this.Load += new System.EventHandler(this.editor_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -297,9 +296,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.spcLeft)).EndInit();
             this.spcLeft.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).EndInit();
             this.ResumeLayout(false);
 
         }

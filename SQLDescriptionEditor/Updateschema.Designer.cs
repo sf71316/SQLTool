@@ -33,10 +33,11 @@
             this.cbDbContext = new System.Windows.Forms.ComboBox();
             this.cbtemplate = new System.Windows.Forms.ComboBox();
             this.gpupdatemethod = new System.Windows.Forms.GroupBox();
-            this.rbselect1 = new System.Windows.Forms.RadioButton();
             this.rbselect2 = new System.Windows.Forms.RadioButton();
+            this.rbselect1 = new System.Windows.Forms.RadioButton();
             this.btnupdate = new System.Windows.Forms.Button();
             this.lblnotification = new System.Windows.Forms.Label();
+            this.cbIsoriginal = new System.Windows.Forms.CheckBox();
             this.gpupdatemethod.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,18 +90,6 @@
             this.gpupdatemethod.TabStop = false;
             this.gpupdatemethod.Text = "Update type ";
             // 
-            // rbselect1
-            // 
-            this.rbselect1.AutoSize = true;
-            this.rbselect1.Location = new System.Drawing.Point(7, 22);
-            this.rbselect1.Name = "rbselect1";
-            this.rbselect1.Size = new System.Drawing.Size(112, 16);
-            this.rbselect1.TabIndex = 0;
-            this.rbselect1.TabStop = true;
-            this.rbselect1.Text = "All column schema";
-            this.rbselect1.UseVisualStyleBackColor = true;
-            this.rbselect1.Click += new System.EventHandler(this.Update_Type_Click);
-            // 
             // rbselect2
             // 
             this.rbselect2.AutoSize = true;
@@ -113,11 +102,23 @@
             this.rbselect2.UseVisualStyleBackColor = true;
             this.rbselect2.Click += new System.EventHandler(this.Update_Type_Click);
             // 
+            // rbselect1
+            // 
+            this.rbselect1.AutoSize = true;
+            this.rbselect1.Location = new System.Drawing.Point(7, 22);
+            this.rbselect1.Name = "rbselect1";
+            this.rbselect1.Size = new System.Drawing.Size(112, 16);
+            this.rbselect1.TabIndex = 0;
+            this.rbselect1.TabStop = true;
+            this.rbselect1.Text = "All column schema";
+            this.rbselect1.UseVisualStyleBackColor = true;
+            this.rbselect1.Click += new System.EventHandler(this.Update_Type_Click);
+            // 
             // btnupdate
             // 
             this.btnupdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnupdate.Enabled = false;
-            this.btnupdate.Location = new System.Drawing.Point(197, 180);
+            this.btnupdate.Location = new System.Drawing.Point(197, 215);
             this.btnupdate.Name = "btnupdate";
             this.btnupdate.Size = new System.Drawing.Size(75, 23);
             this.btnupdate.TabIndex = 11;
@@ -128,16 +129,28 @@
             // lblnotification
             // 
             this.lblnotification.AutoSize = true;
-            this.lblnotification.Location = new System.Drawing.Point(12, 190);
+            this.lblnotification.Location = new System.Drawing.Point(17, 220);
             this.lblnotification.Name = "lblnotification";
             this.lblnotification.Size = new System.Drawing.Size(0, 12);
             this.lblnotification.TabIndex = 12;
+            // 
+            // cbIsoriginal
+            // 
+            this.cbIsoriginal.AutoSize = true;
+            this.cbIsoriginal.Location = new System.Drawing.Point(12, 175);
+            this.cbIsoriginal.Name = "cbIsoriginal";
+            this.cbIsoriginal.Size = new System.Drawing.Size(104, 16);
+            this.cbIsoriginal.TabIndex = 13;
+            this.cbIsoriginal.Text = "Original database";
+            this.cbIsoriginal.UseVisualStyleBackColor = true;
+            this.cbIsoriginal.CheckedChanged += new System.EventHandler(this.cbIsoriginal_CheckedChanged);
             // 
             // Updateschema
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 215);
+            this.ClientSize = new System.Drawing.Size(284, 250);
+            this.Controls.Add(this.cbIsoriginal);
             this.Controls.Add(this.lblnotification);
             this.Controls.Add(this.btnupdate);
             this.Controls.Add(this.gpupdatemethod);
@@ -170,5 +183,6 @@
         private System.Windows.Forms.RadioButton rbselect2;
         private System.Windows.Forms.Button btnupdate;
         private System.Windows.Forms.Label lblnotification;
+        private System.Windows.Forms.CheckBox cbIsoriginal;
     }
 }

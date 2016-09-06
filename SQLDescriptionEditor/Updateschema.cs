@@ -20,7 +20,7 @@ namespace SQLDescriptionEditor
         {
             InitializeComponent();
         }
-        public Updateschema(TableEntity table, ConnectionEntity config = null) : this()
+        public Updateschema(TableEntity table, ConnectionEntity config) : this()
         {
             _table = table;
             _config = config;
@@ -52,7 +52,7 @@ namespace SQLDescriptionEditor
         }
         private bool CheckData()
         {
-            return cbtemplate.SelectedIndex > -1 && cbDbContext.SelectedIndex > -1 &&
+            return (cbIsoriginal.Checked ||( cbtemplate.SelectedIndex > -1 && cbDbContext.SelectedIndex > -1)) &&
                 (rbselect1.Checked || rbselect2.Checked);
         }
         private void Update_Type_Click(object sender, EventArgs e)
@@ -60,16 +60,24 @@ namespace SQLDescriptionEditor
             this.btnupdate.Enabled = this.CheckData();
         }
 
-        private void btnupdate_Click(object sender, EventArgs e)
+        private async void btnupdate_Click(object sender, EventArgs e)
         {
             ProjectModel model = new ProjectModel();
-            if (_config == null)
+            if (!cbIsoriginal.Checked)
             {
                 _config = ConfigureModel.Find(cbtemplate.SelectedValue.ToString());
                 _config.DbName = cbDbContext.SelectedValue.ToString();
             }
             model.Notify += Model_Notify;
-            model.UpdateSchema(_table,rbselect2.Checked, _config);
+            await Task.Run(() =>
+            {
+               this.Invoke(new Action(() => {
+                   btnupdate.Enabled = false;
+               }));
+               model.UpdateSchema(_table, rbselect2.Checked, cbIsoriginal.Checked, _config, this.Invoke);
+            });
+            
+           btnupdate.Enabled = true;
         }
 
         private void Model_Notify(object sender, NotifyArg e)
@@ -84,6 +92,12 @@ namespace SQLDescriptionEditor
             {
                 lblnotification.Text = e.Message;
             }
+        }
+
+        private void cbIsoriginal_CheckedChanged(object sender, EventArgs e)
+        {
+            cbDbContext.Enabled = !cbIsoriginal.Checked;
+            cbtemplate.Enabled = !cbIsoriginal.Checked;
         }
     }
 }

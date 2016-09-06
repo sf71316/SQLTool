@@ -1,4 +1,5 @@
-﻿using SQLDesctionEditor.Lib.Model;
+﻿using SQLDesctionEditor.Lib.Entity;
+using SQLDesctionEditor.Lib.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,7 @@ namespace SQLDescriptionEditor
 {
     public partial class main : BaseForm
     {
-        editor editor = null;
+        ProjectEntity project = null;
         public main()
         {
             InitializeComponent();
@@ -39,18 +40,58 @@ namespace SQLDescriptionEditor
                 var frm = new newprojfrm(saveFileDialog.FileName);
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
-                    this.MdiChildren.ToList().ForEach(p => p.Close());
+                   // this.MdiChildren.ToList().ForEach(p => p.Close());
                     frm.Project.SavePath = saveFileDialog.FileName;
-                    editor = new editor(frm.Project);
-                    editor.MdiParent = this;
-                    editor.Dock = DockStyle.Fill;
-                    editor.WindowState = FormWindowState.Maximized;
-                    editor.TopLevel = false;
-                    editor.Show();
+                   var editor = new editor(frm.Project);
+                   editor.MdiParent = this;
+                   editor.Dock = DockStyle.Fill;
+                   editor.Editing += editor_Editing;
+                   editor.Edited += editor_Edited;
+                   editor.Show();
+                   editor.Focus();
+                   editor.WindowState = FormWindowState.Maximized;
                     this.SaveStripMenuItem.Enabled = true;
                 }
 
             }
+        }
+        private async void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.ClearNotify();
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                //this.MdiChildren.ToList().ForEach(p => p.Close());
+                ProjectModel model = new ProjectModel();
+                var project = await model.LoadAsync(openFileDialog.FileName);
+                if (project != null)
+                {
+                    var editor = new editor(project);
+                    editor.MdiParent = this;
+                    editor.Dock = DockStyle.Fill;
+                    editor.Editing += editor_Editing;
+                    editor.Edited += editor_Edited;
+                    editor.Show();
+                    editor.Focus();
+                    editor.WindowState = FormWindowState.Maximized;
+                    this.SaveStripMenuItem.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("this file can't open.", "Error");
+                }
+            }
+        }
+
+        void editor_Edited(object sender, EventArgs e)
+        {
+            project = null;
+            this.SaveStripMenuItem.Enabled = false;
+        }
+
+        void editor_Editing(object sender, SubFormTransferArgs e)
+        {
+            project = e.Project;
+            this.SaveStripMenuItem.Enabled = true;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -58,29 +99,7 @@ namespace SQLDescriptionEditor
             Environment.Exit(Environment.ExitCode);
         }
 
-        private async void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.ClearNotify();
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                this.MdiChildren.ToList().ForEach(p => p.Close());
-                ProjectModel model = new ProjectModel();
-                var project = await model.LoadAsync(openFileDialog.FileName);
-                if (project != null)
-                {
-                    editor = new editor(project);
-                    editor.MdiParent = this;
-                    editor.Dock = DockStyle.Fill;
-                    editor.WindowState = FormWindowState.Maximized;
-                    editor.TopLevel = false;
-                    editor.Show();
-                    this.SaveStripMenuItem.Enabled = true;
-                }else
-                {
-                    MessageBox.Show("this file can't open.","Error");
-                }
-            }
-        }
+   
 
         private void SaveStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -88,10 +107,10 @@ namespace SQLDescriptionEditor
         }
         private async void Save()
         {
-            if (editor != null)
+            if (project != null)
             {
                 ProjectModel model = new ProjectModel();
-                if (await model.SaveAsync(editor.Project))
+                if (await model.SaveAsync(project))
                 {
                     this.SendNotify("Save succeeded.");
                 }
@@ -113,36 +132,14 @@ namespace SQLDescriptionEditor
             {
                 e.Cancel = true;
             }
-            #region unregister hotkey
-            UnregisterHotKey(this.Handle, this.GetType().GetHashCode());
-            #endregion
+            
         }
         private void main_Load(object sender, EventArgs e)
         {
-            #region register hotkey
-            var modifierKeys = (int)(System.Windows.Input.ModifierKeys.Control);
-            var virtualKey = (int)KeyInterop.VirtualKeyFromKey(Key.S);
-            RegisterHotKey(this.Handle, this.GetType().GetHashCode(), modifierKeys, virtualKey);
-            #endregion
+            
 
         }
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == 0x0312)
-            {
-                if (editor != null)
-                {
-                    var vk = (ushort)(m.LParam.ToInt32() >> 16);//virtual key code
-                    var key = KeyInterop.KeyFromVirtualKey(vk);
-                    if (key == Key.S)
-                    {
-                        this.ClearNotify();
-                        Save();
-                    }
-                }
-            }
-            base.WndProc(ref m);
-        }
+    
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -169,6 +166,23 @@ namespace SQLDescriptionEditor
 
             //}
 
+        }
+
+        private void menuStrip1_ItemAdded(object sender, ToolStripItemEventArgs e)
+        {
+            if (e.Item.Text.Length == 0)
+            {
+                e.Item.Visible = false;
+            }
+        }
+
+        private void main_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Save
+            if (e.Control && e.KeyCode == Keys.S)
+            {
+                Save();
+            }
         }
 
  
