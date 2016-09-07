@@ -56,11 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configure.cs" />
+    <Compile Include="Entity\AutoCompleteEntity.cs" />
     <Compile Include="Entity\ConnectionEntity.cs" />
     <Compile Include="Entity\DataBaseEntity.cs" />
     <Compile Include="Entity\ProjectEntity.cs" />
     <Compile Include="Entity\TableColumnEntity.cs" />
     <Compile Include="Entity\TableEntity.cs" />
+    <Compile Include="Model\AutoCompleteDataSource.cs" />
     <Compile Include="Model\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>

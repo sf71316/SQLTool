@@ -53,5 +53,6 @@ namespace SQLDesctionEditor.Lib.Model
         {
             Connections = null;
         }
+
     }
 }

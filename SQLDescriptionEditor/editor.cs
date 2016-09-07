@@ -15,11 +15,13 @@ namespace SQLDescriptionEditor
     public partial class editor : BaseForm
     {
         public ProjectEntity Project { get; private set; }
+        AutoCompleteDataSource autosource;
         BindingSource tableschemaContext;
         public editor()
         {
             InitializeComponent();
             this.dgvTableschema.AutoGenerateColumns = false;
+            
         }
         public editor(ProjectEntity project) : this()
         {
@@ -31,6 +33,13 @@ namespace SQLDescriptionEditor
             LoadTableList();
             this.ActiveControl = lbTableList;
             this.Text += "- " + Project.ProjectName;
+            LoadAutoCompleteSource();
+        }
+
+        private void LoadAutoCompleteSource()
+        {
+            autosource = new AutoCompleteDataSource(this.Project.Tables);
+            autosource.Generate();
         }
 
         private void LoadTableList(string keyword = "")
@@ -122,15 +131,16 @@ namespace SQLDescriptionEditor
 
         private void dgvTableschema_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            //TextBox autoText = e.Control as TextBox;
-            //if (autoText != null)
-            //{
-            //    autoText.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            //    autoText.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            //    AutoCompleteStringCollection DataCollection = new AutoCompleteStringCollection();
-            //    addItems(DataCollection);
-            //    autoText.AutoCompleteCustomSource = DataCollection;
-            //}
+            TextBox autoText = e.Control as TextBox;
+            if (autoText != null)
+            {
+                autoText.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                autoText.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                AutoCompleteStringCollection DataCollection = new AutoCompleteStringCollection();
+                var columnName = this.dgvTableschema.CurrentRow.Cells[0].Value.ToString();
+                DataCollection.AddRange(autosource.FindCompleteSource(columnName).ToArray());
+                autoText.AutoCompleteCustomSource = DataCollection;
+            }
         }
         
 
