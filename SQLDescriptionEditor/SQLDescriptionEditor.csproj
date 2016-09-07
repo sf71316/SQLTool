@@ -62,6 +62,12 @@
     <Compile Include="editor.Designer.cs">
       <DependentUpon>editor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Importfrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Importfrm.Designer.cs">
+      <DependentUpon>Importfrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="editor.resx">
       <DependentUpon>editor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Importfrm.resx">
+      <DependentUpon>Importfrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="main.resx">
       <DependentUpon>main.cs</DependentUpon>

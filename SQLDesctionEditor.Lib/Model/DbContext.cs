@@ -65,7 +65,8 @@ namespace SQLDesctionEditor.Lib.Model
 	            order by st.name,sc.name
                 ", new { TableNames = TableNames });
                     return result.ToList();
-                }else
+                }
+                else if (Object_id != null)
                 {
                     var result = conn.Query<TableColumnEntity>(@"
                 select distinct
@@ -84,6 +85,27 @@ namespace SQLDesctionEditor.Lib.Model
                 where sc.object_id in @Object_id AND is_ms_shipped=0
 	            order by st.name,sc.name
                 ", new { Object_id = Object_id });
+                    return result.ToList();
+                }
+                else
+                {
+                    var result = conn.Query<TableColumnEntity>(@"
+                select distinct
+                    st.name [Table],
+                    sc.name [Column],
+	                sc.object_id,
+					sc.column_id,
+		            COLUMN_DEFAULT ColumnDefault,isc.IS_NULLABLE ISNULLABLE,DATA_TYPE DataType,CHARACTER_MAXIMUM_LENGTH [Length],
+                    sep.value [Description]
+                from sys.tables st
+                inner join sys.columns sc on st.object_id = sc.object_id
+	            inner join INFORMATION_SCHEMA.COLUMNS isc on isc.COLUMN_NAME=sc.name and isc.TABLE_NAME=st.name
+                left join sys.extended_properties sep on st.object_id = sep.major_id
+                                                     and sc.column_id = sep.minor_id
+                                                     and sep.name = 'MS_Description'
+                where  is_ms_shipped=0
+	            order by st.name,sc.name
+                ");
                     return result.ToList();
                 }
             }
@@ -124,7 +146,6 @@ namespace SQLDesctionEditor.Lib.Model
         {
             this.GenerateDataBase(connectstring, type);
         }
-
         public async static Task<bool> TestConnect(string connectionstring, SQLType type = SQLType.MSSQL)
         {
             var db = new DbContext();
@@ -164,7 +185,6 @@ namespace SQLDesctionEditor.Lib.Model
             }
             return stringbuilder.ConnectionString;
         }
-
         public void Dispose()
         {
 

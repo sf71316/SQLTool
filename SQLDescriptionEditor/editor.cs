@@ -100,21 +100,6 @@ namespace SQLDescriptionEditor
                 this.lbTableList.SelectedIndex = currentindex;
             }
         }
-
-        private void editor_Enter(object sender, EventArgs e)
-        {
-            if (this.Editing != null)
-                this.Editing(this, new SubFormTransferArgs { Project = this.Project });
-        }
-        public event EventHandler<SubFormTransferArgs> Editing;
-        public event EventHandler<EventArgs> Edited;
-
-        private void editor_Leave(object sender, EventArgs e)
-        {
-            if (this.Edited != null)
-                this.Edited(this, new EventArgs());
-        }
-
         private void toolStripRemoveTableButton_Click(object sender, EventArgs e)
         {
             var table = Project.Tables

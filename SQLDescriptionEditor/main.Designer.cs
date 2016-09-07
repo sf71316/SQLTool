@@ -43,8 +43,15 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.NewtoolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.OpentoolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.SavetoolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.SynctoolStripButton = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -150,11 +157,72 @@
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NewtoolStripButton,
+            this.OpentoolStripButton,
+            this.SavetoolStripButton,
+            this.toolStripSeparator1,
+            this.SynctoolStripButton});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1008, 25);
+            this.toolStrip1.TabIndex = 4;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // NewtoolStripButton
+            // 
+            this.NewtoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.NewtoolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("NewtoolStripButton.Image")));
+            this.NewtoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.NewtoolStripButton.Name = "NewtoolStripButton";
+            this.NewtoolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.NewtoolStripButton.Text = "New";
+            this.NewtoolStripButton.ToolTipText = "New";
+            this.NewtoolStripButton.Click += new System.EventHandler(this.NewtoolStripButton_Click);
+            // 
+            // OpentoolStripButton
+            // 
+            this.OpentoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.OpentoolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("OpentoolStripButton.Image")));
+            this.OpentoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.OpentoolStripButton.Name = "OpentoolStripButton";
+            this.OpentoolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.OpentoolStripButton.Text = "Open";
+            this.OpentoolStripButton.Click += new System.EventHandler(this.OpentoolStripButton_Click);
+            // 
+            // SavetoolStripButton
+            // 
+            this.SavetoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SavetoolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("SavetoolStripButton.Image")));
+            this.SavetoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SavetoolStripButton.Name = "SavetoolStripButton";
+            this.SavetoolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.SavetoolStripButton.Text = "Save";
+            this.SavetoolStripButton.Click += new System.EventHandler(this.SavetoolStripButton_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // SynctoolStripButton
+            // 
+            this.SynctoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SynctoolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("SynctoolStripButton.Image")));
+            this.SynctoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SynctoolStripButton.Name = "SynctoolStripButton";
+            this.SynctoolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.SynctoolStripButton.Text = "Sync Table...";
+            this.SynctoolStripButton.Click += new System.EventHandler(this.ImporttoolStripButton_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -172,6 +240,8 @@
             this.menuStrip1.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -192,5 +262,11 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.ToolStripMenuItem SaveStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton NewtoolStripButton;
+        private System.Windows.Forms.ToolStripButton OpentoolStripButton;
+        private System.Windows.Forms.ToolStripButton SavetoolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton SynctoolStripButton;
     }
 }

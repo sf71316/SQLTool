@@ -36,6 +36,7 @@
             this.lbTableList = new System.Windows.Forms.ListBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolbtnupdate = new System.Windows.Forms.ToolStripButton();
+            this.toolStripRemoveTableButton = new System.Windows.Forms.ToolStripButton();
             this.tbtableName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbDescritpion = new System.Windows.Forms.TextBox();
@@ -46,7 +47,6 @@
             this.ISNULLABLE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnDefault = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripRemoveTableButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -150,6 +150,16 @@
             this.toolbtnupdate.Size = new System.Drawing.Size(23, 22);
             this.toolbtnupdate.ToolTipText = "Update table schema";
             this.toolbtnupdate.Click += new System.EventHandler(this.toolbtnupdate_Click);
+            // 
+            // toolStripRemoveTableButton
+            // 
+            this.toolStripRemoveTableButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripRemoveTableButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripRemoveTableButton.Image")));
+            this.toolStripRemoveTableButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripRemoveTableButton.Name = "toolStripRemoveTableButton";
+            this.toolStripRemoveTableButton.Size = new System.Drawing.Size(23, 22);
+            this.toolStripRemoveTableButton.ToolTipText = "Remove this table schema";
+            this.toolStripRemoveTableButton.Click += new System.EventHandler(this.toolStripRemoveTableButton_Click);
             // 
             // tbtableName
             // 
@@ -257,30 +267,19 @@
             this.Description.MinimumWidth = 100;
             this.Description.Name = "Description";
             // 
-            // toolStripRemoveTableButton
-            // 
-            this.toolStripRemoveTableButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripRemoveTableButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripRemoveTableButton.Image")));
-            this.toolStripRemoveTableButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripRemoveTableButton.Name = "toolStripRemoveTableButton";
-            this.toolStripRemoveTableButton.Size = new System.Drawing.Size(23, 22);
-            this.toolStripRemoveTableButton.ToolTipText = "Remove this table schema";
-            this.toolStripRemoveTableButton.Click += new System.EventHandler(this.toolStripRemoveTableButton_Click);
-            // 
             // editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(859, 611);
             this.Controls.Add(this.splitContainer1);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "editor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Table  Editor";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
-            this.Activated += new System.EventHandler(this.editor_Enter);
-            this.Deactivate += new System.EventHandler(this.editor_Leave);
             this.Load += new System.EventHandler(this.editor_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

@@ -29,7 +29,7 @@ namespace SQLDesctionEditor.Lib.Model
         }
         public List<string> FindCompleteSource(string Column)
         {
-            var result = this._datadata.FirstOrDefault(p => p.Key == Column).Value;
+            var result = this._datadata.Where(p => p.Key.Contains(Column)).SelectMany(p=>p.Value);
             if (result != null)
                 return result.ToList();
             else

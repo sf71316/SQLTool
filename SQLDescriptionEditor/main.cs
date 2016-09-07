@@ -15,116 +15,14 @@ namespace SQLDescriptionEditor
 {
     public partial class main : BaseForm
     {
-        ProjectEntity project = null;
         public main()
         {
             InitializeComponent();
             this.SaveStripMenuItem.Enabled = false;
         }
-
-        private void connectionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var connmgmt = new connectmgmt();
-            connmgmt.ShowDialog();
-        }
-
-        private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.ClearNotify();
-            saveFileDialog.Title = "Choose project file folder";
-            saveFileDialog.DefaultExt = "json";
-            saveFileDialog.Filter = "json files (*.json)|*.json|project files (*.sdj)|*.sdj";
-            var result = saveFileDialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                var frm = new newprojfrm(saveFileDialog.FileName);
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
-                   // this.MdiChildren.ToList().ForEach(p => p.Close());
-                    frm.Project.SavePath = saveFileDialog.FileName;
-                   var editor = new editor(frm.Project);
-                   editor.MdiParent = this;
-                   editor.Dock = DockStyle.Fill;
-                   editor.Editing += editor_Editing;
-                   editor.Edited += editor_Edited;
-                   editor.Show();
-                   editor.Focus();
-                   editor.WindowState = FormWindowState.Maximized;
-                    this.SaveStripMenuItem.Enabled = true;
-                }
-
-            }
-        }
-        private async void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.ClearNotify();
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                //this.MdiChildren.ToList().ForEach(p => p.Close());
-                ProjectModel model = new ProjectModel();
-                var project = await model.LoadAsync(openFileDialog.FileName);
-                if (project != null)
-                {
-                    var editor = new editor(project);
-                    editor.MdiParent = this;
-                    editor.Dock = DockStyle.Fill;
-                    editor.Editing += editor_Editing;
-                    editor.Edited += editor_Edited;
-                    editor.Show();
-                    editor.Focus();
-                    editor.WindowState = FormWindowState.Maximized;
-                    this.SaveStripMenuItem.Enabled = true;
-                }
-                else
-                {
-                    MessageBox.Show("this file can't open.", "Error");
-                }
-            }
-        }
-
-        void editor_Edited(object sender, EventArgs e)
-        {
-            project = null;
-            this.SaveStripMenuItem.Enabled = false;
-        }
-
-        void editor_Editing(object sender, SubFormTransferArgs e)
-        {
-            project = e.Project;
-            this.SaveStripMenuItem.Enabled = true;
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(Environment.ExitCode);
-        }
-
-   
-
-        private void SaveStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Save();
-        }
-        private async void Save()
-        {
-            if (project != null)
-            {
-                ProjectModel model = new ProjectModel();
-                if (await model.SaveAsync(project))
-                {
-                    this.SendNotify("Save succeeded.");
-                }
-                else
-                {
-                    this.SendNotify("Save failure.");
-
-                }
-            }
-        }
         private void main_FormClosed(object sender, FormClosedEventArgs e)
         {
         }
-
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (MessageBox.Show("Are you sure to exit ??", "Exit",
@@ -139,8 +37,43 @@ namespace SQLDescriptionEditor
             
 
         }
-    
+        private void menuStrip1_ItemAdded(object sender, ToolStripItemEventArgs e)
+        {
+            if (e.Item.Text.Length == 0)
+            {
+                e.Item.Visible = false;
+            }
+        }
+        private void main_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Save
+            if (e.Control && e.KeyCode == Keys.S)
+            {
+                SaveFile();
+            }
+        }
+        #region Tool bar
+        private void NewtoolStripButton_Click(object sender, EventArgs e)
+        {
+            NewFile();
+        }
 
+        private void OpentoolStripButton_Click(object sender, EventArgs e)
+        {
+            OpenFile();
+        }
+
+        private void SavetoolStripButton_Click(object sender, EventArgs e)
+        {
+            SaveFile();
+        }
+        private void ImporttoolStripButton_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region Menu bar
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //if (editor != null)
@@ -167,24 +100,95 @@ namespace SQLDescriptionEditor
             //}
 
         }
-
-        private void menuStrip1_ItemAdded(object sender, ToolStripItemEventArgs e)
+        private void connectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (e.Item.Text.Length == 0)
+            var connmgmt = new connectmgmt();
+            connmgmt.ShowDialog();
+        }
+        private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewFile();
+        }
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFile();
+        }
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode);
+        }
+        private void SaveStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFile();
+        }
+        #endregion
+        #region Private Method
+        private async void SaveFile()
+        {
+            var editor = this.ActiveMdiChild as editor;
+            if (editor != null)
             {
-                e.Item.Visible = false;
+                ProjectModel model = new ProjectModel();
+                if (await model.SaveAsync(editor.Project))
+                {
+                    this.SendNotify("Save succeeded.");
+                }
+                else
+                {
+                    this.SendNotify("Save failure.");
+
+                }
             }
         }
-
-        private void main_KeyDown(object sender, KeyEventArgs e)
+        private async void OpenFile()
         {
-            //Save
-            if (e.Control && e.KeyCode == Keys.S)
+            this.ClearNotify();
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Save();
+                //this.MdiChildren.ToList().ForEach(p => p.Close());
+                ProjectModel model = new ProjectModel();
+                var project = await model.LoadAsync(openFileDialog.FileName);
+                if (project != null)
+                {
+                    var editor = new editor(project);
+                    editor.MdiParent = this;
+                    editor.Dock = DockStyle.Fill;
+                    editor.Show();
+                    editor.Focus();
+                    editor.WindowState = FormWindowState.Maximized;
+                    this.SaveStripMenuItem.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("this file can't open.", "Error");
+                }
             }
         }
+        private void NewFile()
+        {
+            this.ClearNotify();
+            saveFileDialog.Title = "Choose new project file folder";
+            saveFileDialog.DefaultExt = "json";
+            saveFileDialog.Filter = "json files (*.json)|*.json|project files (*.sdj)|*.sdj";
+            var result = saveFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                var frm = new newprojfrm(saveFileDialog.FileName);
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    // this.MdiChildren.ToList().ForEach(p => p.Close());
+                    frm.Project.SavePath = saveFileDialog.FileName;
+                    var editor = new editor(frm.Project);
+                    editor.MdiParent = this;
+                    editor.Dock = DockStyle.Fill;
+                    editor.Show();
+                    editor.Focus();
+                    editor.WindowState = FormWindowState.Maximized;
+                    this.SaveStripMenuItem.Enabled = true;
+                }
 
- 
+            }
+        }
+        #endregion
     }
 }
