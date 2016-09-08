@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLDesctionEditor.Lib.Entity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,10 +17,20 @@ namespace SQLDescriptionEditor
         {
             InitializeComponent();
         }
-
+        public List<TableEntity> DataSource { get; set; }
         private void btnsync_Click(object sender, EventArgs e)
         {
+            if (rbaddtable.Checked)
+            {
 
+            }else
+            {
+                SyncExistsTable();
+            }
+        }
+        private void SyncExistsTable()
+        {
+            
         }
     }
 }

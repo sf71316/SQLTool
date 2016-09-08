@@ -72,7 +72,7 @@ namespace SQLDesctionEditor.Lib.Model
         public void UpdateSchema(TableEntity _table, bool iswithoutdesc, bool isoriginal
             , ConnectionEntity _config, Func<Delegate, object> WinUI)
         {
-            using (DbContext db = new Model.DbContext(_config))
+            using (DbContext db = new DbContext(_config))
             {
                 this.OnNotify("get column data....");
                 List<TableColumnEntity> columns;
@@ -89,57 +89,8 @@ namespace SQLDesctionEditor.Lib.Model
                     {
                         _table.Table_Name = t.Table;
                     }
-                    foreach (var item in _table.Columns)
-                    {
-                        TableColumnEntity source;
-                        if (isoriginal)
-                            source = columns.FirstOrDefault(p => p.Column_id == item.Column_id);
-                        else
-                            source = columns.FirstOrDefault(p => p.Column == item.Column);
-                        if (source != null)
-                        {
-                            item.Column = source.Column;
-                            item.ColumnDefault = source.ColumnDefault;
-                            item.DataType = source.DataType;
-                            item.Length = source.Length;
-                            item.ISNULLABLE = source.ISNULLABLE;
-                            if (!iswithoutdesc)
-                            {
-                                if (!string.IsNullOrEmpty(source.Description))
-                                    item.Description = source.Description;
-                            }
-                        }
-                    }
-                    if (isoriginal)
-                    {
-                        var newcolumns = columns.Select(p => p.Column_id).ToList().Except(
-                                _table.Columns.Select(p => p.Column_id)
-                            );
-                        var removecolumns = _table.Columns.Select(p => p.Column_id).ToList().Except(
-                                columns.Select(p => p.Column_id)
-                            );
-                        // add columns
-                        columns.Where(p => newcolumns.Contains(p.Column_id)).ToList().ForEach(p =>
-                        {
+                    this.ModifiyTableSchema(columns, _table, WinUI, isoriginal, iswithoutdesc);
 
-                            WinUI.Invoke(new Action(() =>
-                            {
-                                _table.Columns.Add(p);
-                            }));
-
-                        });
-                        //remove columns
-                        for (int i = 0; i < _table.Columns.Count; i++)
-                        {
-                            if (removecolumns.Contains(_table.Columns[i].Column_id))
-                            {
-                                WinUI.Invoke(new Action(() =>
-                                 {
-                                     _table.Columns.RemoveAt(i);
-                                 }));
-                            }
-                        }
-                    }
 
                     this.OnNotify("Complete.");
                 }
@@ -147,6 +98,95 @@ namespace SQLDesctionEditor.Lib.Model
                 {
                     this.OnNotify("not find table please try again.");
                 }
+            }
+        }
+        private void ModifiyTableSchema(List<TableColumnEntity> sources, TableEntity _table, Func<Delegate, object> WinUI,
+            bool isoriginal = true, bool iswithoutdesc = false)
+        {
+            foreach (var item in _table.Columns)
+            {
+                TableColumnEntity source;
+                if (isoriginal)
+                    source = sources.FirstOrDefault(p => p.Column_id == item.Column_id);
+                else
+                    source = sources.FirstOrDefault(p => p.Column == item.Column);
+                if (source != null)
+                {
+                    item.Column = source.Column;
+                    item.ColumnDefault = source.ColumnDefault;
+                    item.DataType = source.DataType;
+                    item.Length = source.Length;
+                    item.ISNULLABLE = source.ISNULLABLE;
+                    if (!iswithoutdesc)
+                    {
+                        if (!string.IsNullOrEmpty(source.Description))
+                            item.Description = source.Description;
+                    }
+                }
+            }
+
+            if (isoriginal)
+            {
+                var newcolumns = sources.Select(p => p.Column_id).ToList().Except(
+                        _table.Columns.Select(p => p.Column_id)
+                    );
+                var removecolumns = _table.Columns.Select(p => p.Column_id).ToList().Except(
+                        sources.Select(p => p.Column_id)
+                    );
+                // add columns
+                sources.Where(p => newcolumns.Contains(p.Column_id)).ToList().ForEach(p =>
+                {
+
+                    WinUI.Invoke(new Action(() =>
+                    {
+                        _table.Columns.Add(p);
+                    }));
+
+                });
+                //remove columns
+                for (int i = 0; i < _table.Columns.Count; i++)
+                {
+                    if (removecolumns.Contains(_table.Columns[i].Column_id))
+                    {
+                        WinUI.Invoke(new Action(() =>
+                        {
+                            _table.Columns.RemoveAt(i);
+                        }));
+                    }
+                }
+            }
+        }
+
+        public void SyncExistsTable(ProjectEntity project, Func<Delegate, object> WinUI)
+        {
+            var _config = ConfigureModel.Find(project.ConnectionName);
+            _config.DbName = project.DbName;
+            using (DbContext db = new DbContext(_config))
+            {
+                this.OnNotify("get column data....");
+                List<TableColumnEntity> columns =
+                db.GetColumns(Object_id: project.Tables.Select(t => t.Object_id).ToArray());
+                this.OnNotify("begin remove table....");
+                //remove table
+                var removetables = project.Tables.Select(p => p.Object_id).ToList().Except(
+                              columns.Select(p => p.Object_id).GroupBy(g => g).Select(p => p.Key).ToList()
+                          );
+                for (int i = 0; i < project.Tables.Count; i++)
+                {
+                    if (removetables.Contains(project.Tables[i].Object_id))
+                    {
+                        WinUI.Invoke(new Action(() =>
+                        {
+                            project.Tables.RemoveAt(i);
+                        }));
+                    }
+                }
+                this.OnNotify("begin sync all tale ....");
+                foreach (var item in project.Tables)
+                {
+                    this.ModifiyTableSchema(columns, item, WinUI, iswithoutdesc: true);
+                }
+                this.OnNotify("Complete.");
             }
         }
     }
