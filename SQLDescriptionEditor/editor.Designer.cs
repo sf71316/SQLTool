@@ -1,4 +1,6 @@
-﻿namespace SQLDescriptionEditor
+﻿using SQLDesctionEditor.Lib.Controls;
+
+namespace SQLDescriptionEditor
 {
     partial class editor
     {
@@ -47,6 +49,8 @@
             this.ISNULLABLE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnDefault = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.tbCKeyword = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -58,6 +62,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -72,13 +77,15 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.tbCKeyword);
+            this.splitContainer1.Panel2.Controls.Add(this.pictureBox2);
             this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
             this.splitContainer1.Panel2.Controls.Add(this.tbtableName);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.tbDescritpion);
             this.splitContainer1.Panel2.Controls.Add(this.dgvTableschema);
-            this.splitContainer1.Size = new System.Drawing.Size(859, 611);
-            this.splitContainer1.SplitterDistance = 203;
+            this.splitContainer1.Size = new System.Drawing.Size(951, 611);
+            this.splitContainer1.SplitterDistance = 224;
             this.splitContainer1.TabIndex = 0;
             // 
             // spcLeft
@@ -97,7 +104,7 @@
             // spcLeft.Panel2
             // 
             this.spcLeft.Panel2.Controls.Add(this.lbTableList);
-            this.spcLeft.Size = new System.Drawing.Size(203, 611);
+            this.spcLeft.Size = new System.Drawing.Size(224, 611);
             this.spcLeft.SplitterDistance = 40;
             this.spcLeft.TabIndex = 0;
             // 
@@ -116,8 +123,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbKeyword.Location = new System.Drawing.Point(30, 9);
             this.tbKeyword.Name = "tbKeyword";
-            this.tbKeyword.Size = new System.Drawing.Size(164, 22);
+            this.tbKeyword.Size = new System.Drawing.Size(185, 22);
             this.tbKeyword.TabIndex = 1;
+            this.tbKeyword.TextChanged += new System.EventHandler(this.tbKeyword_TextChanged);
             // 
             // lbTableList
             // 
@@ -126,7 +134,7 @@
             this.lbTableList.ItemHeight = 12;
             this.lbTableList.Location = new System.Drawing.Point(0, 0);
             this.lbTableList.Name = "lbTableList";
-            this.lbTableList.Size = new System.Drawing.Size(203, 567);
+            this.lbTableList.Size = new System.Drawing.Size(224, 567);
             this.lbTableList.TabIndex = 1;
             this.lbTableList.SelectedIndexChanged += new System.EventHandler(this.lbTableList_SelectedIndexChanged);
             // 
@@ -137,7 +145,7 @@
             this.toolStripRemoveTableButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(652, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(723, 25);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -168,9 +176,10 @@
             this.tbtableName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbtableName.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tbtableName.Location = new System.Drawing.Point(17, 30);
+            this.tbtableName.MinimumSize = new System.Drawing.Size(0, 25);
             this.tbtableName.Name = "tbtableName";
             this.tbtableName.ReadOnly = true;
-            this.tbtableName.Size = new System.Drawing.Size(418, 19);
+            this.tbtableName.Size = new System.Drawing.Size(324, 25);
             this.tbtableName.TabIndex = 6;
             // 
             // label1
@@ -209,7 +218,7 @@
             this.dgvTableschema.Name = "dgvTableschema";
             this.dgvTableschema.RowTemplate.Height = 24;
             this.dgvTableschema.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvTableschema.Size = new System.Drawing.Size(650, 516);
+            this.dgvTableschema.Size = new System.Drawing.Size(721, 516);
             this.dgvTableschema.TabIndex = 1;
             this.dgvTableschema.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvTableschema_EditingControlShowing);
             // 
@@ -267,11 +276,30 @@
             this.Description.MinimumWidth = 100;
             this.Description.Name = "Description";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(515, 70);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.TabIndex = 8;
+            this.pictureBox2.TabStop = false;
+            // 
+            // tbCKeyword
+            // 
+            this.tbCKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbCKeyword.Location = new System.Drawing.Point(537, 64);
+            this.tbCKeyword.Name = "tbCKeyword";
+            this.tbCKeyword.Size = new System.Drawing.Size(183, 22);
+            this.tbCKeyword.TabIndex = 9;
+            this.tbCKeyword.TextChanged += new System.EventHandler(this.tbCKeyword_TextChanged);
+            // 
             // editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(859, 611);
+            this.ClientSize = new System.Drawing.Size(951, 611);
             this.Controls.Add(this.splitContainer1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -295,6 +323,7 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -319,5 +348,7 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolbtnupdate;
         private System.Windows.Forms.ToolStripButton toolStripRemoveTableButton;
+        private System.Windows.Forms.TextBox tbCKeyword;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

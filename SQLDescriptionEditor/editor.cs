@@ -19,6 +19,7 @@ namespace SQLDescriptionEditor
         BindingSource tableschemaContext;
         public editor()
         {
+            
             InitializeComponent();
             this.dgvTableschema.AutoGenerateColumns = false;
             
@@ -59,23 +60,27 @@ namespace SQLDescriptionEditor
         {
             this.BindData();
         }
-        private void BindData(string OrderBy = "")
+        private void BindData(string keyword="",string OrderBy = "")
         {
             var table = Project.Tables
                .FirstOrDefault(p => p.Table_Name == lbTableList.SelectedValue.ToString());
             if (table != null)
             {
                 tableschemaContext = new BindingSource();
-                tableschemaContext.DataSource = table.Columns;
+                if(string.IsNullOrEmpty(keyword))
+                    tableschemaContext.DataSource = table.Columns;
+                else
+                    tableschemaContext.DataSource = table.Columns.Where(p=>p.Column.ToLower().Contains(keyword.ToLower())).ToList();
                 if (!string.IsNullOrEmpty(OrderBy))
                     tableschemaContext.Sort = OrderBy;
                 dgvTableschema.DataSource = tableschemaContext;
                 tbtableName.DataBindings.Clear();
                 tbtableName.DataBindings.Add("Text", table, "Table_Name");
                 tbDescritpion.DataBindings.Clear();
-                tbDescritpion.DataBindings.Add("Text", table, "Description", false, DataSourceUpdateMode.OnPropertyChanged);
+                tbDescritpion.DataBindings.Add("Text", table, "Description", false,
+                    DataSourceUpdateMode.OnPropertyChanged);
 
-
+                
             }
         }
 
@@ -127,7 +132,10 @@ namespace SQLDescriptionEditor
                 autoText.AutoCompleteCustomSource = DataCollection;
             }
         }
-        
 
+        private void tbCKeyword_TextChanged(object sender, EventArgs e)
+        {
+            this.BindData(keyword:tbCKeyword.Text);
+        }
     }
 }

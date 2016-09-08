@@ -56,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configure.cs" />
+    <Compile Include="Controls\TextboxBtn.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Entity\AutoCompleteEntity.cs" />
     <Compile Include="Entity\ConnectionEntity.cs" />
     <Compile Include="Entity\DataBaseEntity.cs" />

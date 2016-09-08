@@ -136,7 +136,9 @@
       <Name>SQLDesctionEditor.Lib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="database-edit.ico" />
   </ItemGroup>
