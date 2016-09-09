@@ -35,8 +35,8 @@ namespace SQLDesctionEditor.Lib.Model
         {
             using (var conn = this.Provider.GenerateConnection())
             {
-                var result = conn.Query<TableEntity>(@" select * from INFORMATION_SCHEMA.TABLES
-                                                        WHERE TABLE_TYPE = 'BASE TABLE'");
+                var result = conn.Query<TableEntity>(@"select name Table_Name,object_id from sys.tables
+                                        WHERE type_desc='USER_TABLE' AND is_ms_shipped=0");
                 return result.ToList();
             }
 

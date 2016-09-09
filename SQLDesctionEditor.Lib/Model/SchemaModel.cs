@@ -29,7 +29,7 @@ namespace SQLDesctionEditor.Lib.Model
 
                 foreach (var item in _tables)
                 {
-                    item.Object_id = _columns.First().Object_id;
+                    item.Object_id = _columns.FirstOrDefault(p => p.Table == item.Table_Name).Object_id;
                     var columns = _columns.Where(p => p.Table == item.Table_Name);
                     item.Columns = new BindingList<ColumnEntity>(
                         columns.ToList());
@@ -45,18 +45,23 @@ namespace SQLDesctionEditor.Lib.Model
             config.DbName = DbName;
             using (DbContext db = new DbContext(config))
             {
+                var exists = datasource.Select(s => s.Object_id);
                 var _tables = db.GetTables().Where(p =>
-                !datasource.Select(s => s.Object_id).Contains(p.Object_id))
+                !exists.Contains(p.Object_id))
                 .OrderBy(P => P.Table_Name).ToList();
-                var _columns = db.GetColumns(_tables.Select(p => p.Table_Name).ToArray());
-                foreach (var item in _tables)
+                if (_tables.Count > 0)
                 {
-                    item.Object_id = _columns.First().Object_id;
-                    var columns = _columns.Where(p => p.Table == item.Table_Name);
-                    item.Columns = new BindingList<ColumnEntity>(
-                        columns.ToList());
+                    var _columns = db.GetColumns(_tables.Select(p => p.Table_Name).ToArray());
+                    foreach (var item in _tables)
+                    {
+                        item.Object_id = _columns.First().Object_id;
+                        var columns = _columns.Where(p => p.Table == item.Table_Name);
+                        item.Columns = new BindingList<ColumnEntity>(
+                            columns.ToList());
+                    }
+                    return _tables;
                 }
-                return _tables;
+                return null;
 
             }
 

@@ -28,7 +28,6 @@ namespace SQLDescriptionEditor
         {
             this.Project = project;
         }
-
         private void editor_Load(object sender, EventArgs e)
         {
             LoadTableList();
@@ -36,13 +35,11 @@ namespace SQLDescriptionEditor
             this.Text += "- " + Project.ProjectName;
             LoadAutoCompleteSource();
         }
-
         private void LoadAutoCompleteSource()
         {
             autosource = new AutoCompleteDataSource(this.Project.Tables);
             autosource.Generate();
         }
-
         private void LoadTableList(string keyword = "")
         {
             lbTableList.DisplayMember = "Table_Name";
@@ -50,12 +47,10 @@ namespace SQLDescriptionEditor
             lbTableList.DataSource = this.Project.Tables
                 .Where(p => p.Table_Name.ToLower().Contains(keyword.ToLower())).ToList();
         }
-
         private void tbKeyword_TextChanged(object sender, EventArgs e)
         {
             LoadTableList(this.tbKeyword.Text);
         }
-
         private void lbTableList_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.BindData();
@@ -83,12 +78,10 @@ namespace SQLDescriptionEditor
                 
             }
         }
-
         private void dgvTableschema_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             //this.BindData(dgvTableschema.Columns[e.ColumnIndex].DataPropertyName);
         }
-
         private void toolbtnupdate_Click(object sender, EventArgs e)
         {
             var table = Project.Tables
@@ -118,7 +111,6 @@ namespace SQLDescriptionEditor
                 lbTableList.SelectedIndex = index;
             }
         }
-
         private void dgvTableschema_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             TextBox autoText = e.Control as TextBox;
@@ -132,10 +124,14 @@ namespace SQLDescriptionEditor
                 autoText.AutoCompleteCustomSource = DataCollection;
             }
         }
-
         private void tbCKeyword_TextChanged(object sender, EventArgs e)
         {
             this.BindData(keyword:tbCKeyword.Text);
+        }
+        public void RefreshData()
+        {
+            LoadTableList();
+            BindData();
         }
     }
 }
