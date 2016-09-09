@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace SQLDesctionEditor.Lib.Entity
 {
-    public class TableColumnEntity: INotifyPropertyChanged
+    public class ColumnEntity: INotifyPropertyChanged
     {
         private string _Description;
         [JsonIgnore]

@@ -30,7 +30,7 @@ namespace SQLDesctionEditor.Lib.Entity
                 }
             }
         }
-        public BindingList<TableColumnEntity> Columns { get; set; }
+        public BindingList<ColumnEntity> Columns { get; set; }
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (this.PropertyChanged != null)

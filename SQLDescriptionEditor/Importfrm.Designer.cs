@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbaddtable = new System.Windows.Forms.RadioButton();
             this.rbsync = new System.Windows.Forms.RadioButton();
+            this.rbaddtable = new System.Windows.Forms.RadioButton();
             this.btnsync = new System.Windows.Forms.Button();
+            this.lbnotification = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,17 +47,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sync type";
             // 
-            // rbaddtable
-            // 
-            this.rbaddtable.AutoSize = true;
-            this.rbaddtable.Location = new System.Drawing.Point(7, 22);
-            this.rbaddtable.Name = "rbaddtable";
-            this.rbaddtable.Size = new System.Drawing.Size(90, 16);
-            this.rbaddtable.TabIndex = 0;
-            this.rbaddtable.TabStop = true;
-            this.rbaddtable.Text = "Add new table";
-            this.rbaddtable.UseVisualStyleBackColor = true;
-            // 
             // rbsync
             // 
             this.rbsync.AutoSize = true;
@@ -68,6 +58,17 @@
             this.rbsync.Text = "Sync exists tables";
             this.rbsync.UseVisualStyleBackColor = true;
             // 
+            // rbaddtable
+            // 
+            this.rbaddtable.AutoSize = true;
+            this.rbaddtable.Location = new System.Drawing.Point(7, 22);
+            this.rbaddtable.Name = "rbaddtable";
+            this.rbaddtable.Size = new System.Drawing.Size(90, 16);
+            this.rbaddtable.TabIndex = 0;
+            this.rbaddtable.TabStop = true;
+            this.rbaddtable.Text = "Add new table";
+            this.rbaddtable.UseVisualStyleBackColor = true;
+            // 
             // btnsync
             // 
             this.btnsync.Location = new System.Drawing.Point(197, 107);
@@ -78,11 +79,20 @@
             this.btnsync.UseVisualStyleBackColor = true;
             this.btnsync.Click += new System.EventHandler(this.btnsync_Click);
             // 
+            // lbnotification
+            // 
+            this.lbnotification.AutoSize = true;
+            this.lbnotification.Location = new System.Drawing.Point(20, 117);
+            this.lbnotification.Name = "lbnotification";
+            this.lbnotification.Size = new System.Drawing.Size(0, 12);
+            this.lbnotification.TabIndex = 2;
+            // 
             // Importfrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 142);
+            this.Controls.Add(this.lbnotification);
             this.Controls.Add(this.btnsync);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -94,6 +104,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -103,5 +114,6 @@
         private System.Windows.Forms.RadioButton rbaddtable;
         private System.Windows.Forms.RadioButton rbsync;
         private System.Windows.Forms.Button btnsync;
+        private System.Windows.Forms.Label lbnotification;
     }
 }

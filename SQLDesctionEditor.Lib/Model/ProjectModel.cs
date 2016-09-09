@@ -70,12 +70,12 @@ namespace SQLDesctionEditor.Lib.Model
         }
         public Func<bool> FileExist { get; set; }
         public void UpdateSchema(TableEntity _table, bool iswithoutdesc, bool isoriginal
-            , ConnectionEntity _config, Func<Delegate, object> WinUI)
+            , ConnectionEntity _config, Func<Delegate, object> WinUIthread)
         {
             using (DbContext db = new DbContext(_config))
             {
                 this.OnNotify("get column data....");
-                List<TableColumnEntity> columns;
+                List<ColumnEntity> columns;
                 if (isoriginal)
                     columns = db.GetColumns(Object_id: new int[] { _table.Object_id });
                 else
@@ -89,7 +89,7 @@ namespace SQLDesctionEditor.Lib.Model
                     {
                         _table.Table_Name = t.Table;
                     }
-                    this.ModifiyTableSchema(columns, _table, WinUI, isoriginal, iswithoutdesc);
+                    this.ModifiyTableSchema(columns, _table, WinUIthread, isoriginal, iswithoutdesc);
 
 
                     this.OnNotify("Complete.");
@@ -100,12 +100,12 @@ namespace SQLDesctionEditor.Lib.Model
                 }
             }
         }
-        private void ModifiyTableSchema(List<TableColumnEntity> sources, TableEntity _table, Func<Delegate, object> WinUI,
+        private void ModifiyTableSchema(List<ColumnEntity> sources, TableEntity _table, Func<Delegate, object> WinUI,
             bool isoriginal = true, bool iswithoutdesc = false)
         {
             foreach (var item in _table.Columns)
             {
-                TableColumnEntity source;
+                ColumnEntity source;
                 if (isoriginal)
                     source = sources.FirstOrDefault(p => p.Column_id == item.Column_id);
                 else
@@ -156,15 +156,14 @@ namespace SQLDesctionEditor.Lib.Model
                 }
             }
         }
-
-        public void SyncExistsTable(ProjectEntity project, Func<Delegate, object> WinUI)
+        public void SyncExistsTable(ProjectEntity project, Func<Delegate, object> WinUIthread)
         {
             var _config = ConfigureModel.Find(project.ConnectionName);
             _config.DbName = project.DbName;
             using (DbContext db = new DbContext(_config))
             {
                 this.OnNotify("get column data....");
-                List<TableColumnEntity> columns =
+                List<ColumnEntity> columns =
                 db.GetColumns(Object_id: project.Tables.Select(t => t.Object_id).ToArray());
                 this.OnNotify("begin remove table....");
                 //remove table
@@ -175,7 +174,7 @@ namespace SQLDesctionEditor.Lib.Model
                 {
                     if (removetables.Contains(project.Tables[i].Object_id))
                     {
-                        WinUI.Invoke(new Action(() =>
+                        WinUIthread.Invoke(new Action(() =>
                         {
                             project.Tables.RemoveAt(i);
                         }));
@@ -184,10 +183,15 @@ namespace SQLDesctionEditor.Lib.Model
                 this.OnNotify("begin sync all tale ....");
                 foreach (var item in project.Tables)
                 {
-                    this.ModifiyTableSchema(columns, item, WinUI, iswithoutdesc: true);
+                    this.ModifiyTableSchema(columns, item, WinUIthread, iswithoutdesc: true);
                 }
                 this.OnNotify("Complete.");
             }
+        }
+        public List<TableEntity> GetRemainTable(ProjectEntity project)
+        {
+            SchemaModel model = new SchemaModel();
+           return model.GetRemainTable(project.Tables, project.ConnectionName, project.DbName);
         }
     }
 }

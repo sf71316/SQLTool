@@ -41,13 +41,13 @@ namespace SQLDesctionEditor.Lib.Model
             }
 
         }
-        public List<TableColumnEntity> GetColumns(string[] TableNames = null, int[] Object_id = null)
+        public List<ColumnEntity> GetColumns(string[] TableNames = null, int[] Object_id = null)
         {
             using (var conn = this.Provider.GenerateConnection())
             {
                 if (TableNames != null)
                 {
-                    var result = conn.Query<TableColumnEntity>(@"
+                    var result = conn.Query<ColumnEntity>(@"
                 select distinct
                     st.name [Table],
                     sc.name [Column],
@@ -68,7 +68,7 @@ namespace SQLDesctionEditor.Lib.Model
                 }
                 else if (Object_id != null)
                 {
-                    var result = conn.Query<TableColumnEntity>(@"
+                    var result = conn.Query<ColumnEntity>(@"
                 select distinct
                     st.name [Table],
                     sc.name [Column],
@@ -89,7 +89,7 @@ namespace SQLDesctionEditor.Lib.Model
                 }
                 else
                 {
-                    var result = conn.Query<TableColumnEntity>(@"
+                    var result = conn.Query<ColumnEntity>(@"
                 select distinct
                     st.name [Table],
                     sc.name [Column],

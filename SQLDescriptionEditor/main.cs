@@ -69,7 +69,9 @@ namespace SQLDescriptionEditor
         }
         private void ImporttoolStripButton_Click(object sender, EventArgs e)
         {
-
+            var syncfrm = new Importfrm();
+            syncfrm.Project = (this.ActiveMdiChild as editor).Project;
+            syncfrm.ShowDialog();
         }
         #endregion
 

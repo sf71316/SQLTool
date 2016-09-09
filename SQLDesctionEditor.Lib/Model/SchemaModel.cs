@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SQLDesctionEditor.Lib.Model
 {
-    public class SchemaModel: Notification
+    public class SchemaModel : Notification
     {
         public SchemaModel()
         {
@@ -31,12 +31,35 @@ namespace SQLDesctionEditor.Lib.Model
                 {
                     item.Object_id = _columns.First().Object_id;
                     var columns = _columns.Where(p => p.Table == item.Table_Name);
-                    item.Columns = new BindingList<TableColumnEntity>(
+                    item.Columns = new BindingList<ColumnEntity>(
                         columns.ToList());
                 }
                 return _tables;
             }
-            
+
+        }
+        public List<TableEntity> GetRemainTable(IList<TableEntity> datasource
+            , string ConnectionName, string DbName)
+        {
+            var config = ConfigureModel.Find(ConnectionName);
+            config.DbName = DbName;
+            using (DbContext db = new DbContext(config))
+            {
+                var _tables = db.GetTables().Where(p =>
+                !datasource.Select(s => s.Object_id).Contains(p.Object_id))
+                .OrderBy(P => P.Table_Name).ToList();
+                var _columns = db.GetColumns(_tables.Select(p => p.Table_Name).ToArray());
+                foreach (var item in _tables)
+                {
+                    item.Object_id = _columns.First().Object_id;
+                    var columns = _columns.Where(p => p.Table == item.Table_Name);
+                    item.Columns = new BindingList<ColumnEntity>(
+                        columns.ToList());
+                }
+                return _tables;
+
+            }
+
         }
     }
 }
