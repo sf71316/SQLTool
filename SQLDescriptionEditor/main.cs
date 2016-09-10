@@ -30,11 +30,11 @@ namespace SQLDescriptionEditor
             {
                 e.Cancel = true;
             }
-            
+
         }
         private void main_Load(object sender, EventArgs e)
         {
-            
+
 
         }
         private void menuStrip1_ItemAdded(object sender, ToolStripItemEventArgs e)
@@ -69,9 +69,11 @@ namespace SQLDescriptionEditor
         }
         private void ImporttoolStripButton_Click(object sender, EventArgs e)
         {
+            var currenteditor = (this.ActiveMdiChild as editor);
             var syncfrm = new Importfrm();
-            syncfrm.Project = (this.ActiveMdiChild as editor).Project;
+            syncfrm.Project = currenteditor.Project;
             syncfrm.ShowDialog();
+            currenteditor.RefreshData();
         }
         #endregion
 

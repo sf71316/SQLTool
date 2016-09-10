@@ -33,6 +33,7 @@
             this.rbaddtable = new System.Windows.Forms.RadioButton();
             this.btnsync = new System.Windows.Forms.Button();
             this.lbnotification = new System.Windows.Forms.Label();
+            this.lbAddTable = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,7 +72,8 @@
             // 
             // btnsync
             // 
-            this.btnsync.Location = new System.Drawing.Point(197, 107);
+            this.btnsync.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnsync.Location = new System.Drawing.Point(197, 304);
             this.btnsync.Name = "btnsync";
             this.btnsync.Size = new System.Drawing.Size(75, 23);
             this.btnsync.TabIndex = 1;
@@ -81,17 +83,30 @@
             // 
             // lbnotification
             // 
+            this.lbnotification.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbnotification.AutoSize = true;
-            this.lbnotification.Location = new System.Drawing.Point(20, 117);
+            this.lbnotification.Location = new System.Drawing.Point(20, 312);
             this.lbnotification.Name = "lbnotification";
             this.lbnotification.Size = new System.Drawing.Size(0, 12);
             this.lbnotification.TabIndex = 2;
+            // 
+            // lbAddTable
+            // 
+            this.lbAddTable.FormattingEnabled = true;
+            this.lbAddTable.ItemHeight = 12;
+            this.lbAddTable.Location = new System.Drawing.Point(13, 112);
+            this.lbAddTable.Name = "lbAddTable";
+            this.lbAddTable.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbAddTable.Size = new System.Drawing.Size(184, 172);
+            this.lbAddTable.TabIndex = 3;
+            this.lbAddTable.Visible = false;
             // 
             // Importfrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 142);
+            this.ClientSize = new System.Drawing.Size(284, 339);
+            this.Controls.Add(this.lbAddTable);
             this.Controls.Add(this.lbnotification);
             this.Controls.Add(this.btnsync);
             this.Controls.Add(this.groupBox1);
@@ -115,5 +130,6 @@
         private System.Windows.Forms.RadioButton rbsync;
         private System.Windows.Forms.Button btnsync;
         private System.Windows.Forms.Label lbnotification;
+        private System.Windows.Forms.ListBox lbAddTable;
     }
 }

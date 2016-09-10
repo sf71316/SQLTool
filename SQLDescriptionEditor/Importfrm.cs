@@ -17,24 +17,52 @@ namespace SQLDescriptionEditor
         public Importfrm()
         {
             InitializeComponent();
+            this.Height = 189;
         }
         public ProjectEntity Project { get; set; }
         private void btnsync_Click(object sender, EventArgs e)
         {
-            if (rbaddtable.Checked)
+            if (btnsync.Text == "Sync")
             {
-                ImportNewTable();
+                if (rbaddtable.Checked)
+                {
+                    ImportNewTable();
+                }
+                else
+                {
+                    SyncExistsTable();
+                }
             }
             else
             {
-                SyncExistsTable();
+                var tables = lbAddTable.SelectedItems.Cast<TableEntity>();
+                foreach (var item in tables)
+                {
+                    Project.Tables.Add(item);
+                }
+                Project.Tables = Project.Tables.OrderBy(p => p.Table_Name).ToList();
+                this.Close();
             }
         }
 
         private void ImportNewTable()
         {
+           
             ProjectModel model = new ProjectModel();
-            model.GetRemainTable(this.Project);
+            var tables = model.GetRemainTable(this.Project);
+            if (tables != null)
+            {
+                this.Height = 378;
+                this.lbAddTable.Visible = true;
+                btnsync.Text = "Confirm";
+                lbAddTable.DataSource = tables;
+                lbAddTable.DisplayMember = "Table_Name";
+                lbAddTable.ValueMember = "Table_Name";
+            }else
+            {
+                MessageBox.Show("not find table to add.","");
+            }
+
         }
 
         private async void SyncExistsTable()
