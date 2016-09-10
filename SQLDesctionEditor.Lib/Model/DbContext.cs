@@ -83,7 +83,7 @@ namespace SQLDesctionEditor.Lib.Model
                                                      and sc.column_id = sep.minor_id
                                                      and sep.name = 'MS_Description'
                 where sc.object_id in @Object_id AND is_ms_shipped=0
-	            order by st.name,sc.name
+	            order by st.name,sc.column_id
                 ", new { Object_id = Object_id });
                     return result.ToList();
                 }

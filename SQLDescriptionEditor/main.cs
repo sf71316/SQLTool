@@ -72,36 +72,53 @@ namespace SQLDescriptionEditor
             var currenteditor = (this.ActiveMdiChild as editor);
             var syncfrm = new Importfrm();
             syncfrm.Project = currenteditor.Project;
+            syncfrm.Notify += Syncfrm_Notify;
             syncfrm.ShowDialog();
             currenteditor.RefreshData();
+        }
+
+        private void Syncfrm_Notify(object sender, NotifyArg e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() =>
+                {
+                    this.SendNotify(e.Message);
+                }));
+            }
+            else
+            {
+                this.SendNotify(e.Message);
+            }
         }
         #endregion
 
         #region Menu bar
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if (editor != null)
-            //{
-            //    var entity = ConfigureModel.Find(editor.Project.ConnectionName);
-            //    entity.DbName = editor.Project.DbName;
-            //    using (DbContext context = new DbContext(entity))
-            //    {
-            //        ProjectModel model = new ProjectModel();
-            //        var _columns = context.GetColumns(editor.Project.Tables.Select(p => p.Table_Name).ToArray());
-            //        foreach (var item in editor.Project.Tables)
-            //        {
-            //            var columns = _columns.Where(p => p.Table == item.Table_Name);
-            //            item.Object_id = columns.First().Object_id;
-            //            foreach (var column in item.Columns)
-            //            {
-            //                var co = _columns.FirstOrDefault(p => p.Column == column.Column);
-            //                column.Column_id = co.Column_id;
-            //            }
-            //        }
-            //        await model.SaveAsync(editor.Project);
-            //    }
+            var editor = (this.ActiveMdiChild as editor);
+            if (editor != null)
+            {
+                var entity = ConfigureModel.Find(editor.Project.ConnectionName);
+                entity.DbName = editor.Project.DbName;
+                using (DbContext context = new DbContext(entity))
+                {
+                    ProjectModel model = new ProjectModel();
+                    var _columns = context.GetColumns(editor.Project.Tables.Select(p => p.Table_Name).ToArray());
+                    foreach (var item in editor.Project.Tables)
+                    {
+                        var columns = _columns.Where(p => p.Table == item.Table_Name);
+                        item.Object_id = columns.First().Object_id;
+                        foreach (var column in item.Columns)
+                        {
+                            var co = _columns.FirstOrDefault(p => p.Column == column.Column);
+                            column.Column_id = co.Column_id;
+                        }
+                    }
 
-            //}
+                }
+
+            }
 
         }
         private void connectionToolStripMenuItem_Click(object sender, EventArgs e)

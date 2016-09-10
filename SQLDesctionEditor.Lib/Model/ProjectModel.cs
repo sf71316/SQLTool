@@ -74,7 +74,7 @@ namespace SQLDesctionEditor.Lib.Model
         {
             using (DbContext db = new DbContext(_config))
             {
-                this.OnNotify("get column data....");
+                this.OnNotify("Get column data....");
                 List<ColumnEntity> columns;
                 if (isoriginal)
                     columns = db.GetColumns(Object_id: new int[] { _table.Object_id });
@@ -83,7 +83,7 @@ namespace SQLDesctionEditor.Lib.Model
                 if (columns.Count > 0)
                 {
 
-                    this.OnNotify("begin compare data....");
+                    this.OnNotify("Begin compare data....");
                     var t = columns.First();
                     if (_table.Table_Name != t.Table)
                     {
@@ -96,22 +96,21 @@ namespace SQLDesctionEditor.Lib.Model
                 }
                 else
                 {
-                    this.OnNotify("not find table please try again.");
+                    this.OnNotify("Not find table please try again.");
                 }
             }
         }
         private void ModifiyTableSchema(List<ColumnEntity> sources, TableEntity _table, Func<Delegate, object> WinUI,
-            bool isoriginal = true, bool iswithoutdesc = false)
+          bool isoriginal=false, bool iswithoutdesc = false)
         {
             foreach (var item in _table.Columns)
             {
                 ColumnEntity source;
-                if (isoriginal)
-                    source = sources.FirstOrDefault(p => p.Column_id == item.Column_id);
-                else
-                    source = sources.FirstOrDefault(p => p.Column == item.Column);
+                source = sources.Where(x => x.Object_id == _table.Object_id)
+                    .FirstOrDefault(p => p.Column_id == item.Column_id || p.Column == item.Column);
                 if (source != null)
                 {
+                    item.Column_id = source.Column_id;
                     item.Column = source.Column;
                     item.ColumnDefault = source.ColumnDefault;
                     item.DataType = source.DataType;
@@ -130,19 +129,18 @@ namespace SQLDesctionEditor.Lib.Model
                 var newcolumns = sources.Select(p => p.Column_id).ToList().Except(
                         _table.Columns.Select(p => p.Column_id)
                     );
-                var removecolumns = _table.Columns.Select(p => p.Column_id).ToList().Except(
-                        sources.Select(p => p.Column_id)
-                    );
                 // add columns
                 sources.Where(p => newcolumns.Contains(p.Column_id)).ToList().ForEach(p =>
                 {
-
                     WinUI.Invoke(new Action(() =>
                     {
                         _table.Columns.Add(p);
                     }));
 
                 });
+                var removecolumns = _table.Columns.Select(p => p.Column_id).ToList().Except(
+                       sources.Select(p => p.Column_id)
+                   );
                 //remove columns
                 for (int i = 0; i < _table.Columns.Count; i++)
                 {
@@ -162,13 +160,15 @@ namespace SQLDesctionEditor.Lib.Model
             _config.DbName = project.DbName;
             using (DbContext db = new DbContext(_config))
             {
-                this.OnNotify("get column data....");
+                this.OnNotify("Get table data....");
+                var tables = db.GetTables().Where(p => project.Tables.Select(t => t.Object_id).ToArray().Contains(p.Object_id));
+                this.OnNotify("Get column data....");
                 List<ColumnEntity> columns =
                 db.GetColumns(Object_id: project.Tables.Select(t => t.Object_id).ToArray());
-                this.OnNotify("begin remove table....");
+                this.OnNotify("Begin remove table....");
                 //remove table
                 var removetables = project.Tables.Select(p => p.Object_id).ToList().Except(
-                              columns.Select(p => p.Object_id).GroupBy(g => g).Select(p => p.Key).ToList()
+                              tables.Select(p => p.Object_id).GroupBy(g => g).Select(p => p.Key).ToList()
                           );
                 for (int i = 0; i < project.Tables.Count; i++)
                 {
@@ -180,9 +180,10 @@ namespace SQLDesctionEditor.Lib.Model
                         }));
                     }
                 }
-                this.OnNotify("begin sync all tale ....");
+                this.OnNotify("Begin modify table ....");
                 foreach (var item in project.Tables)
                 {
+                    this.OnNotify("Sync " + item.Table_Name);
                     this.ModifiyTableSchema(columns, item, WinUIthread, iswithoutdesc: true);
                 }
                 this.OnNotify("Complete.");
@@ -191,7 +192,7 @@ namespace SQLDesctionEditor.Lib.Model
         public List<TableEntity> GetRemainTable(ProjectEntity project)
         {
             SchemaModel model = new SchemaModel();
-           return model.GetRemainTable(project.Tables, project.ConnectionName, project.DbName);
+            return model.GetRemainTable(project.Tables, project.ConnectionName, project.DbName);
         }
     }
 }

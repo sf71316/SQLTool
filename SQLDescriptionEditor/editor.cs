@@ -22,7 +22,8 @@ namespace SQLDescriptionEditor
             
             InitializeComponent();
             this.dgvTableschema.AutoGenerateColumns = false;
-            
+            this.SetDoubleBuffered(this.dgvTableschema);
+            this.SetDoubleBuffered(this.lbTableList);
         }
         public editor(ProjectEntity project) : this()
         {
@@ -132,6 +133,13 @@ namespace SQLDescriptionEditor
         {
             LoadTableList();
             BindData();
+            this.SendNotify("Sync table complete.");
+        }
+
+        private void dgvTableschema_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            var columnName = this.dgvTableschema.CurrentRow.Cells[0].Value.ToString();
+
         }
     }
 }

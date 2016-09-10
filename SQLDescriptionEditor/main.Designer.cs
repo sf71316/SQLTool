@@ -139,7 +139,6 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileName = "openFileDialog1";
             this.openFileDialog.Filter = "json files (*.json)|*.json|project files (*.sdj)|*.sdj";
             // 
             // statusStrip

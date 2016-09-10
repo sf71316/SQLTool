@@ -46,6 +46,7 @@ namespace SQLDescriptionEditor
             this.tbDescritpion = new System.Windows.Forms.TextBox();
             this.dgvTableschema = new System.Windows.Forms.DataGridView();
             this.Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ISNULLABLE = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -227,6 +228,7 @@ namespace SQLDescriptionEditor
             this.dgvTableschema.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTableschema.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column,
+            this.ColumnId,
             this.DataType,
             this.Length,
             this.ISNULLABLE,
@@ -239,6 +241,7 @@ namespace SQLDescriptionEditor
             this.dgvTableschema.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvTableschema.Size = new System.Drawing.Size(721, 516);
             this.dgvTableschema.TabIndex = 1;
+            this.dgvTableschema.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTableschema_CellEndEdit);
             this.dgvTableschema.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvTableschema_EditingControlShowing);
             // 
             // Column
@@ -249,6 +252,13 @@ namespace SQLDescriptionEditor
             this.Column.MinimumWidth = 100;
             this.Column.Name = "Column";
             this.Column.ReadOnly = true;
+            // 
+            // ColumnId
+            // 
+            this.ColumnId.DataPropertyName = "Column_id";
+            this.ColumnId.HeaderText = "Column Id";
+            this.ColumnId.Name = "ColumnId";
+            this.ColumnId.ReadOnly = true;
             // 
             // DataType
             // 
@@ -301,7 +311,6 @@ namespace SQLDescriptionEditor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 611);
             this.Controls.Add(this.splitContainer1);
-            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "editor";
@@ -339,16 +348,17 @@ namespace SQLDescriptionEditor
         private System.Windows.Forms.TextBox tbKeyword;
         private System.Windows.Forms.TextBox tbtableName;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DataType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Length;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ISNULLABLE;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDefault;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolbtnupdate;
         private System.Windows.Forms.ToolStripButton toolStripRemoveTableButton;
         private System.Windows.Forms.TextBox tbCKeyword;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Length;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ISNULLABLE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDefault;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
     }
 }

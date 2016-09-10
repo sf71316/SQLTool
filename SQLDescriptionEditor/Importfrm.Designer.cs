@@ -32,7 +32,6 @@
             this.rbsync = new System.Windows.Forms.RadioButton();
             this.rbaddtable = new System.Windows.Forms.RadioButton();
             this.btnsync = new System.Windows.Forms.Button();
-            this.lbnotification = new System.Windows.Forms.Label();
             this.lbAddTable = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -81,15 +80,6 @@
             this.btnsync.UseVisualStyleBackColor = true;
             this.btnsync.Click += new System.EventHandler(this.btnsync_Click);
             // 
-            // lbnotification
-            // 
-            this.lbnotification.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lbnotification.AutoSize = true;
-            this.lbnotification.Location = new System.Drawing.Point(20, 312);
-            this.lbnotification.Name = "lbnotification";
-            this.lbnotification.Size = new System.Drawing.Size(0, 12);
-            this.lbnotification.TabIndex = 2;
-            // 
             // lbAddTable
             // 
             this.lbAddTable.FormattingEnabled = true;
@@ -107,7 +97,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 339);
             this.Controls.Add(this.lbAddTable);
-            this.Controls.Add(this.lbnotification);
             this.Controls.Add(this.btnsync);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -119,7 +108,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -129,7 +117,6 @@
         private System.Windows.Forms.RadioButton rbaddtable;
         private System.Windows.Forms.RadioButton rbsync;
         private System.Windows.Forms.Button btnsync;
-        private System.Windows.Forms.Label lbnotification;
         private System.Windows.Forms.ListBox lbAddTable;
     }
 }

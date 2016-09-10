@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SQLDescriptionEditor
 {
-    public partial class Importfrm : Form
+    public partial class Importfrm : BaseForm
     {
         public Importfrm()
         {
@@ -20,7 +20,7 @@ namespace SQLDescriptionEditor
             this.Height = 189;
         }
         public ProjectEntity Project { get; set; }
-        private void btnsync_Click(object sender, EventArgs e)
+        private  void btnsync_Click(object sender, EventArgs e)
         {
             if (btnsync.Text == "Sync")
             {
@@ -31,6 +31,7 @@ namespace SQLDescriptionEditor
                 else
                 {
                     SyncExistsTable();
+                    
                 }
             }
             else
@@ -70,23 +71,21 @@ namespace SQLDescriptionEditor
             if (this.Project != null)
             {
                 btnsync.Enabled = false;
-                await Task.Run(() =>
+               await Task.Run(() =>
                 {
                     ProjectModel model = new ProjectModel();
                     model.Notify += Model_Notify;
                     model.SyncExistsTable(Project, this.Invoke);
                 });
-                btnsync.Enabled = true;
+                this.Close();
             }
         }
 
         private void Model_Notify(object sender, NotifyArg e)
         {
-            this.Invoke(new Action(() =>
-            {
-                lbnotification.Text = e.Message;
-            }));
-
+            if (this.Notify != null)
+                this.Notify(sender, e);
         }
+        public event EventHandler<NotifyArg> Notify;
     }
 }
