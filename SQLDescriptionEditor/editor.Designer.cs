@@ -36,6 +36,8 @@ namespace SQLDescriptionEditor
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tbKeyword = new System.Windows.Forms.TextBox();
             this.lbTableList = new System.Windows.Forms.ListBox();
+            this.tbCKeyword = new System.Windows.Forms.TextBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolbtnupdate = new System.Windows.Forms.ToolStripButton();
             this.toolStripRemoveTableButton = new System.Windows.Forms.ToolStripButton();
@@ -49,8 +51,6 @@ namespace SQLDescriptionEditor
             this.ISNULLABLE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnDefault = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.tbCKeyword = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -60,9 +60,9 @@ namespace SQLDescriptionEditor
             this.spcLeft.Panel2.SuspendLayout();
             this.spcLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -138,6 +138,25 @@ namespace SQLDescriptionEditor
             this.lbTableList.TabIndex = 1;
             this.lbTableList.SelectedIndexChanged += new System.EventHandler(this.lbTableList_SelectedIndexChanged);
             // 
+            // tbCKeyword
+            // 
+            this.tbCKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbCKeyword.Location = new System.Drawing.Point(537, 64);
+            this.tbCKeyword.Name = "tbCKeyword";
+            this.tbCKeyword.Size = new System.Drawing.Size(183, 22);
+            this.tbCKeyword.TabIndex = 9;
+            this.tbCKeyword.TextChanged += new System.EventHandler(this.tbCKeyword_TextChanged);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(515, 70);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.TabIndex = 8;
+            this.pictureBox2.TabStop = false;
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -179,7 +198,7 @@ namespace SQLDescriptionEditor
             this.tbtableName.MinimumSize = new System.Drawing.Size(0, 25);
             this.tbtableName.Name = "tbtableName";
             this.tbtableName.ReadOnly = true;
-            this.tbtableName.Size = new System.Drawing.Size(324, 25);
+            this.tbtableName.Size = new System.Drawing.Size(324, 19);
             this.tbtableName.TabIndex = 6;
             // 
             // label1
@@ -276,25 +295,6 @@ namespace SQLDescriptionEditor
             this.Description.MinimumWidth = 100;
             this.Description.Name = "Description";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(515, 70);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox2.TabIndex = 8;
-            this.pictureBox2.TabStop = false;
-            // 
-            // tbCKeyword
-            // 
-            this.tbCKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbCKeyword.Location = new System.Drawing.Point(537, 64);
-            this.tbCKeyword.Name = "tbCKeyword";
-            this.tbCKeyword.Size = new System.Drawing.Size(183, 22);
-            this.tbCKeyword.TabIndex = 9;
-            this.tbCKeyword.TextChanged += new System.EventHandler(this.tbCKeyword_TextChanged);
-            // 
             // editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -320,10 +320,10 @@ namespace SQLDescriptionEditor
             ((System.ComponentModel.ISupportInitialize)(this.spcLeft)).EndInit();
             this.spcLeft.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableschema)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }

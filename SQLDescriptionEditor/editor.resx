@@ -141,6 +141,28 @@
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="toolbtnupdate.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFGSURBVDhPzZAxS8NAFMcPXJz9Arkkd6ZJHTq46KK7HTs4
+        qFnsIIgOFcdevoBD8Svo0klwMBHBsQ6Ci4OC0EVBUMjiXv8vvGBsU4lOPvhB8t77/7g78T/Kdd264zgp
+        +KhIalmWz/FMsIrmyLbtZhVolzIc/xJIKQ+qMCHQWqPn3NAAPGLptgya8c4AV5AcFwJDD80hDTF4wzGf
+        y6AZC2hXc/zbG2zkQLqJ/hb6YRHq027pGyC4/RP1nd5yzSQnUqlDiFY4LgSG8xA8kAS8YPhEoH+tW501
+        3T5aJ4LueduPkhFJrDCc5Xh2AoXgHQuGCN8TEPSwfEahcUgi+v2ZXJBfYZfA9x7Yx3dzmoA5Hhe0iqC/
+        NE3gRRepZy4XM4FSKoDgFaH3IrjGac3EXc/EV4QfxYOJ8G8Kp1n4c5gqMPFcYJIG/6KE+ASzxNzX2oPA
+        twAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="toolStripRemoveTableButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD0SURBVDhP3ZDBCoJAFEX7Ev+lfqNdn1Crlu3at1FRFP2r
+        NgMiZpkMYkhm8uq+HBE0pW0XLjPIu/f4ZvZ/oh88KNquD7Ra7kaNuc94XwQJISgIAgrDkKIoojiO2UmS
+        UJqm0wWGYZBpmmRZFgcdx2G7rktSyumCLllRYYSzLJsuANm2baYi6Hke2/d9yvN8uqBLBjXab0gstL7n
+        mt7kWnGBoqudMfzMJNXVg+91caNSHPne5FpxQZeOnTn0DkPV9cwnSr4WgNzdGYMw/gJCifrW5FrxgCIj
+        XBQFD4IIVZcTn3V5Hy4YsqKr0NgbDAqvjeGe55r+AosUm0tEB7c6AAAAAElFTkSuQmCC
+</value>
+  </data>
   <metadata name="Column.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -159,31 +181,6 @@
   <metadata name="Description.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="toolbtnupdate.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACLSURBVDhPzZDRCYAgFEVdpJGiEZrAxVqlj8Ad+vGvBTJO
-        qGRdw5+gC4dA3z34Mv+JtTa0EMfLcOG9b0JKOHTONfGNgHBRoxvmTBwvw5DaFyhNW8hICQL1XKAwriHz
-        jYCkfa8wrAQPCcNvu/fLfpb5yn+BoPZ8SnfkC5QA7pJHOSXtrUiSarklumzMAWYrySvh/fETAAAAAElF
-        TkSuQmCC
-</value>
-  </data>
-  <data name="toolStripRemoveTableButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIvSURBVDhPlZFdSFNhHMZ35aU01EvZEPu4csQgcDGpm+wq
-        uukiQSEpaoOyQWFdWFZ0UYkIWbS12RYU6tKGmR8IfdBNOGJnHi/KslC3s53PbWfTlvt4es85rbKCOC88
-        8H8O/H/v87zHcPbKAI663DjSdV+XlB1l16AMJz1hnH4Y1SVlp/28F4YDxwO4EFpC79yKLik7rScCMLSf
-        u4cWZxB25xNdUnaOdZME3df7sbyWwocvoi59WpVwue+OBhBSGQw+DulSsVgkgMFfgLG5N6icQGgW3zY3
-        fzjteILPUSqVUCgUyDyJfD6/FTA8/RKcmFI1ND6NOMuDFSQkiRK8CPfoJOJJDgny3T36DLlcDpdu/Qb4
-        V0zf2BTYtRjmI7Tq/U9n8FUUIUYopNPprQClQrlcVmP6SYXc+gYKmQzWx4NYsFpBOZyql4e8CNfV4Z3J
-        RAC3NQAnpTA89QIMJ6gxfaTC59U4ZF5ApLERwtVe0JYmvN9rw7xxG3I+DxaIHzh1RgMkScc/41f0+tBh
-        UA0NkPtuYPlgKzbcdxG1WLDY2YmeSgKG5RCcfYVsNgtZlvGAdGU5DqIgoEC6rtiaQe/cgYyrS1XYaMRH
-        hwM9NysAEtsfmvnr9ih5PMnrw9uqKiRb7KDq67FoNoPdvw+02YSJpt0aQJIkiOR1eZ78OpZFIpEAwzCI
-        xWJY6ugAXVMDqrYW0bY2NXq4ulr1Iza7BvifJrbvwoh1z09/zXURj5rtZO7Hd7mn718sezr7AAAAAElF
-        TkSuQmCC
-</value>
-  </data>
   <metadata name="Column.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

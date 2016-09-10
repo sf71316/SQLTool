@@ -152,6 +152,7 @@ namespace SQLDescriptionEditor
                 var project = await model.LoadAsync(openFileDialog.FileName);
                 if (project != null)
                 {
+                    project.SavePath = openFileDialog.FileName;
                     var editor = new editor(project);
                     editor.MdiParent = this;
                     editor.Dock = DockStyle.Fill;
