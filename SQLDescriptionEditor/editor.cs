@@ -19,7 +19,7 @@ namespace SQLDescriptionEditor
         BindingSource tableschemaContext;
         public editor()
         {
-            
+
             InitializeComponent();
             this.dgvTableschema.AutoGenerateColumns = false;
             this.SetDoubleBuffered(this.dgvTableschema);
@@ -56,17 +56,17 @@ namespace SQLDescriptionEditor
         {
             this.BindData();
         }
-        private void BindData(string keyword="",string OrderBy = "")
+        private void BindData(string keyword = "", string OrderBy = "")
         {
             var table = Project.Tables
                .FirstOrDefault(p => p.Table_Name == lbTableList.SelectedValue.ToString());
             if (table != null)
             {
                 tableschemaContext = new BindingSource();
-                if(string.IsNullOrEmpty(keyword))
+                if (string.IsNullOrEmpty(keyword))
                     tableschemaContext.DataSource = table.Columns;
                 else
-                    tableschemaContext.DataSource = table.Columns.Where(p=>p.Column.ToLower().Contains(keyword.ToLower())).ToList();
+                    tableschemaContext.DataSource = table.Columns.Where(p => p.Column.ToLower().Contains(keyword.ToLower())).ToList();
                 if (!string.IsNullOrEmpty(OrderBy))
                     tableschemaContext.Sort = OrderBy;
                 dgvTableschema.DataSource = tableschemaContext;
@@ -76,7 +76,7 @@ namespace SQLDescriptionEditor
                 tbDescritpion.DataBindings.Add("Text", table, "Description", false,
                     DataSourceUpdateMode.OnPropertyChanged);
 
-                
+
             }
         }
         private void dgvTableschema_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -90,6 +90,7 @@ namespace SQLDescriptionEditor
             var _config = ConfigureModel.Find(Project.ConnectionName);
             _config.DbName = Project.DbName;
             var updatefrm = new Updateschema(table, _config);
+            updatefrm.Notify += Updatefrm_Notify;
             updatefrm.ShowDialog();
             if (tableschemaContext != null)
             {
@@ -99,6 +100,22 @@ namespace SQLDescriptionEditor
                 this.lbTableList.SelectedIndex = currentindex;
             }
         }
+
+        private void Updatefrm_Notify(object sender, NotifyArg e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() =>
+                {
+                    this.SendNotify(e.Message);
+                }));
+            }
+            else
+            {
+                this.SendNotify(e.Message);
+            }
+        }
+
         private void toolStripRemoveTableButton_Click(object sender, EventArgs e)
         {
             var table = Project.Tables
@@ -127,7 +144,7 @@ namespace SQLDescriptionEditor
         }
         private void tbCKeyword_TextChanged(object sender, EventArgs e)
         {
-            this.BindData(keyword:tbCKeyword.Text);
+            this.BindData(keyword: tbCKeyword.Text);
         }
         public void RefreshData()
         {

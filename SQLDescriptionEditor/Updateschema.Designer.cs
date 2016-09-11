@@ -36,7 +36,6 @@
             this.rbselect2 = new System.Windows.Forms.RadioButton();
             this.rbselect1 = new System.Windows.Forms.RadioButton();
             this.btnupdate = new System.Windows.Forms.Button();
-            this.lblnotification = new System.Windows.Forms.Label();
             this.cbIsoriginal = new System.Windows.Forms.CheckBox();
             this.gpupdatemethod.SuspendLayout();
             this.SuspendLayout();
@@ -126,14 +125,6 @@
             this.btnupdate.UseVisualStyleBackColor = true;
             this.btnupdate.Click += new System.EventHandler(this.btnupdate_Click);
             // 
-            // lblnotification
-            // 
-            this.lblnotification.AutoSize = true;
-            this.lblnotification.Location = new System.Drawing.Point(17, 220);
-            this.lblnotification.Name = "lblnotification";
-            this.lblnotification.Size = new System.Drawing.Size(0, 12);
-            this.lblnotification.TabIndex = 12;
-            // 
             // cbIsoriginal
             // 
             this.cbIsoriginal.AutoSize = true;
@@ -151,7 +142,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 250);
             this.Controls.Add(this.cbIsoriginal);
-            this.Controls.Add(this.lblnotification);
             this.Controls.Add(this.btnupdate);
             this.Controls.Add(this.gpupdatemethod);
             this.Controls.Add(this.label2);
@@ -182,7 +172,6 @@
         private System.Windows.Forms.RadioButton rbselect1;
         private System.Windows.Forms.RadioButton rbselect2;
         private System.Windows.Forms.Button btnupdate;
-        private System.Windows.Forms.Label lblnotification;
         private System.Windows.Forms.CheckBox cbIsoriginal;
     }
 }

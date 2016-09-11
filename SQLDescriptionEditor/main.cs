@@ -123,7 +123,9 @@ namespace SQLDescriptionEditor
         }
         private void connectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var connmgmt = new connectmgmt();
+            //var connmgmt = new connectmgmt();
+            //connmgmt.ShowDialog();
+            var connmgmt = new ConnectionMgmt();
             connmgmt.ShowDialog();
         }
         private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)

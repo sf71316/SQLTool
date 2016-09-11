@@ -82,16 +82,8 @@ namespace SQLDescriptionEditor
 
         private void Model_Notify(object sender, NotifyArg e)
         {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new Action(() =>
-                {
-                    lblnotification.Text = e.Message;
-                }));
-            }else
-            {
-                lblnotification.Text = e.Message;
-            }
+            if (this.Notify != null)
+                this.Notify(sender, e);
         }
 
         private void cbIsoriginal_CheckedChanged(object sender, EventArgs e)
@@ -99,5 +91,6 @@ namespace SQLDescriptionEditor
             cbDbContext.Enabled = !cbIsoriginal.Checked;
             cbtemplate.Enabled = !cbIsoriginal.Checked;
         }
+        public event EventHandler<NotifyArg> Notify;
     }
 }

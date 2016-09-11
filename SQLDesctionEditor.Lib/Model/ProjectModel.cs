@@ -160,15 +160,19 @@ namespace SQLDesctionEditor.Lib.Model
             _config.DbName = project.DbName;
             using (DbContext db = new DbContext(_config))
             {
+                var _objectid = project.Tables.Select(t => t.Object_id);
+                var _tablename = project.Tables.Select(t => t.Table_Name);
                 this.OnNotify("Get table data....");
-                var tables = db.GetTables().Where(p => project.Tables.Select(t => t.Object_id).ToArray().Contains(p.Object_id));
+                var tables = db.GetTables().Where(p =>
+                _objectid.Contains(p.Object_id)||
+                _tablename.Contains(p.Table_Name));
                 this.OnNotify("Get column data....");
                 List<ColumnEntity> columns =
                 db.GetColumns(Object_id: project.Tables.Select(t => t.Object_id).ToArray());
                 this.OnNotify("Begin remove table....");
                 //remove table
                 var removetables = project.Tables.Select(p => p.Object_id).ToList().Except(
-                              tables.Select(p => p.Object_id).GroupBy(g => g).Select(p => p.Key).ToList()
+                              tables.Select(p => p.Object_id).ToList()
                           );
                 for (int i = 0; i < project.Tables.Count; i++)
                 {

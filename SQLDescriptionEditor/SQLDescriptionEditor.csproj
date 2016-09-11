@@ -39,6 +39,14 @@
     <StartupObject>SQLDescriptionEditor.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Data.ConnectionUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=f4ca07f51760da93, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataConnectionDialog.1.2\lib\Microsoft.Data.ConnectionUI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.ConnectionUI.Dialog, Version=0.0.0.0, Culture=neutral, PublicKeyToken=f4ca07f51760da93, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataConnectionDialog.1.2\lib\Microsoft.Data.ConnectionUI.Dialog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +61,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionMgmt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConnectionMgmt.Designer.cs">
+      <DependentUpon>ConnectionMgmt.cs</DependentUpon>
+    </Compile>
     <Compile Include="connectmgmt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +105,9 @@
     <Compile Include="Updateschema.Designer.cs">
       <DependentUpon>Updateschema.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ConnectionMgmt.resx">
+      <DependentUpon>ConnectionMgmt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="connectmgmt.resx">
       <DependentUpon>connectmgmt.cs</DependentUpon>
     </EmbeddedResource>
@@ -119,6 +136,7 @@
     <EmbeddedResource Include="Updateschema.resx">
       <DependentUpon>Updateschema.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\SQLDesctionEditor.Lib.Entity.TableEntity.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
