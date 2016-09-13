@@ -24,7 +24,36 @@ namespace SQLDescriptionEditor
             this.dgvTableschema.AutoGenerateColumns = false;
             this.SetDoubleBuffered(this.dgvTableschema);
             this.SetDoubleBuffered(this.lbTableList);
+            this.lbTableList.DrawItem += LbTableList_DrawItem;
         }
+
+        private void LbTableList_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            var color = Color.White;
+            var item = lbTableList.Items[e.Index] as TableEntity;
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                e = new DrawItemEventArgs(e.Graphics,
+                                          e.Font,
+                                          e.Bounds,
+                                          e.Index,
+                                          e.State ^ DrawItemState.Selected,
+                                          e.ForeColor,
+                                          Color.Yellow);
+            else  if (item.NeedUpdate)
+            {
+                color = Color.FromArgb(255,186,125);
+            }
+            e.DrawBackground();
+            Graphics g = e.Graphics;
+
+            g.FillRectangle(new SolidBrush(color), e.Bounds);
+
+            // Print text
+            e.Graphics.DrawString(item.Table_Name, e.Font, Brushes.Black,
+                e.Bounds, StringFormat.GenericDefault);
+            e.DrawFocusRectangle();
+        }
+
         public editor(ProjectEntity project) : this()
         {
             this.Project = project;

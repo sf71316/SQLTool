@@ -30,6 +30,8 @@ namespace SQLDesctionEditor.Lib.Entity
                 }
             }
         }
+        [JsonIgnore]
+        public bool NeedUpdate { get; set; }
         public BindingList<ColumnEntity> Columns { get; set; }
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
