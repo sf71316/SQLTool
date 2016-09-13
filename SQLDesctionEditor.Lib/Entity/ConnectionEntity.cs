@@ -9,12 +9,7 @@ namespace SQLDesctionEditor.Lib.Entity
     public class ConnectionEntity
     {
         public string  ConnectionName { get; set; }
-        public string  DbName { get; set; }
-        public string ServerName { get; set; }
+        public string  ConnectionString { get; set; }
         public string ProviderName { get; set; }
-        public string UserId { get; set; }
-        public string Password { get; set; }
-        public bool WindowsAuthentication { get; set; }
-
     }
 }

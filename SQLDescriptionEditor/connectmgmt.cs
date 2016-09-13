@@ -79,15 +79,15 @@ namespace SQLDescriptionEditor
         }
         private bool CheckData()
         {
-            var _servername = this.tbservername.Text;
-            var _iswinauth = cbAuthmode.SelectedIndex;
-            var _userid = this.tbusername.Text;
-            var _pwd = this.tbpwd.Text;
-            var connstring = DbContext.GetConnectionString(_servername,
-                 _iswinauth == 0, _userid, _pwd);
-            var result = DbContext.TestConnect(connstring).Result;
-            return result;
-
+            //var _servername = this.tbservername.Text;
+            //var _iswinauth = cbAuthmode.SelectedIndex;
+            //var _userid = this.tbusername.Text;
+            //var _pwd = this.tbpwd.Text;
+            //var connstring = DbContext.GetConnectionString(_servername,
+            //     _iswinauth == 0, _userid, _pwd);
+            //var result = DbContext.TestConnect(connstring).Result;
+            //return result;
+            return true;
         }
         private void Save()
         {

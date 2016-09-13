@@ -1,4 +1,5 @@
-﻿using SQLDesctionEditor.Lib;
+﻿using Microsoft.Data.ConnectionUI;
+using SQLDesctionEditor.Lib;
 using SQLDesctionEditor.Lib.Entity;
 using SQLDesctionEditor.Lib.Model;
 using System;
@@ -16,6 +17,7 @@ namespace SQLDescriptionEditor
     public partial class newprojfrm : Form
     {
         string _savepath;
+        ConnectionEntity _currentEntity = null;
         public ProjectEntity Project { get; protected set; }
         public newprojfrm(string SavePath) : this()
         {
@@ -38,25 +40,10 @@ namespace SQLDescriptionEditor
             cbtemplate.DataSource = connectionList;
             cbtemplate.SelectedIndex = -1;
         }
-
-        private void cbtemplate_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            if (cbtemplate.SelectedIndex > -1)
-            {
-                if (!string.IsNullOrEmpty(cbtemplate.SelectedValue.ToString()))
-                {
-                    var entity = ConfigureModel.GetDefaultConnectionList()
-                        .FirstOrDefault(p => p.ConnectionName == cbtemplate.SelectedValue.ToString());
-
-                    DbContext db = new DbContext(entity);
-                    cbDbContext.DataSource = db.GetDataBases();
-                    cbDbContext.Enabled = true;
-                }
-            }
-        }
         private bool CheckData()
         {
-            return tbprojname.Text.Length > 3 && cbDbContext.SelectedIndex > -1;
+            return tbprojname.Text.Length > 3  &&
+                _currentEntity!=null;
         }
 
 
@@ -73,10 +60,61 @@ namespace SQLDescriptionEditor
         private void btncreate_Click(object sender, EventArgs e)
         {
             ProjectModel model = new ProjectModel();
-            this.Project = model.Create(cbtemplate.SelectedValue.ToString()
-                , cbDbContext.SelectedValue.ToString());
+            this.Project = model.Create(_currentEntity);
             this.Project.ProjectName = tbprojname.Text;
             this.Close();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            this.cbtemplate.Enabled = !cbNewConn.Checked;
+            this.btnOpenConnDialog.Enabled = cbNewConn.Checked;
+            if (cbNewConn.Checked)
+            {
+                _currentEntity = null;
+                tbConnectInfo.Text = "";
+            }else
+            {
+                selectdConnection();
+            }
+        }
+
+        private void btnOpenConnDialog_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new DataConnectionDialog())
+            {
+                DataSource.AddStandardDataSources(dialog);
+                dialog.DataSources.Clear();
+                dialog.DataSources.Add(DataSource.SqlDataSource);
+
+                DialogResult userChoice = DataConnectionDialog.Show(dialog);
+
+                if (userChoice == DialogResult.OK)
+                {
+                    if (_currentEntity == null)
+                    {
+                        _currentEntity = new ConnectionEntity();
+                    }
+                    _currentEntity.ConnectionString = dialog.ConnectionString;
+                    _currentEntity.ProviderName = dialog.SelectedDataProvider.Name;
+                    tbConnectInfo.Text = dialog.ConnectionString;
+                    CheckData();
+                }
+
+            }
+        }
+        private void cbtemplate_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            selectdConnection();
+        }
+
+        private void selectdConnection()
+        {
+            if (this.cbtemplate.SelectedIndex > -1)
+            {
+                _currentEntity = ConfigureModel.Find(cbtemplate.SelectedValue.ToString());
+                tbConnectInfo.Text = _currentEntity.ConnectionString;
+            }
         }
     }
 }

@@ -272,7 +272,7 @@ namespace SQLDescriptionEditor
             // Length
             // 
             this.Length.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Length.DataPropertyName = "Length";
+            this.Length.DataPropertyName = "LengthStr";
             this.Length.HeaderText = "Length";
             this.Length.Name = "Length";
             this.Length.ReadOnly = true;

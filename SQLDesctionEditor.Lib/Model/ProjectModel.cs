@@ -17,13 +17,15 @@ namespace SQLDesctionEditor.Lib.Model
         {
 
         }
-        public ProjectEntity Create(string ConnectionName, string DbName)
+        public ProjectEntity Create(ConnectionEntity connection)
         {
             var proj = new ProjectEntity();
-            proj.ConnectionName = ConnectionName;
-            proj.DbName = DbName;
+            proj.ConnectionString = connection.ConnectionString;
+            proj.ProviderName = connection.ProviderName;
+            //proj.ConnectionName = ConnectionName;
+            //proj.DbName = DbName;
             SchemaModel model = new Model.SchemaModel();
-            proj.Tables = model.GetAllTableSchema(ConnectionName, DbName);
+            proj.Tables = model.GetAllTableSchema(proj.ConnectionString, proj.ProviderName);
             return proj;
         }
         public async Task<ProjectEntity> LoadAsync(string FilePath)
@@ -157,7 +159,6 @@ namespace SQLDesctionEditor.Lib.Model
         public void SyncExistsTable(ProjectEntity project, Func<Delegate, object> WinUIthread)
         {
             var _config = ConfigureModel.Find(project.ConnectionName);
-            _config.DbName = project.DbName;
             using (DbContext db = new DbContext(_config))
             {
                 var _objectid = project.Tables.Select(t => t.Object_id);

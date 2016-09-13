@@ -10,6 +10,8 @@ namespace SQLDesctionEditor.Lib.Entity
     public class ProjectEntity
     {
         public string ConnectionName { get; set; }
+        public string ConnectionString { get; set; }
+        public string ProviderName { get; set; }
         [JsonIgnore]
         public string SavePath { get; set; }
         public string DbName { get; set; }

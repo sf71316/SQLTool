@@ -20,8 +20,18 @@ namespace SQLDesctionEditor.Lib.Entity
         public int Column_id { get; set; }
         public string DataType { get; set; }
         public int Length { get; set; }
+        public string LengthStr {
+            get
+            {
+                if (this.DataType.ToLower() == "varchar" && Length == -1)
+                    return "MAX";
+                else
+                    return Length.ToString();
+            }
+        }
         public string ISNULLABLE { get; set; }
         public string ColumnDefault { get; set; }
+        public string LastModifiedOn { get; set; }
         public string Description {
             get
             {

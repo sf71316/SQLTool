@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbDbContext = new System.Windows.Forms.ComboBox();
             this.cbtemplate = new System.Windows.Forms.ComboBox();
             this.gpupdatemethod = new System.Windows.Forms.GroupBox();
             this.rbselect2 = new System.Windows.Forms.RadioButton();
@@ -49,25 +47,6 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "Connection Name";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 53);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 12);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "DataBase";
-            // 
-            // cbDbContext
-            // 
-            this.cbDbContext.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbDbContext.Enabled = false;
-            this.cbDbContext.FormattingEnabled = true;
-            this.cbDbContext.Location = new System.Drawing.Point(12, 71);
-            this.cbDbContext.Name = "cbDbContext";
-            this.cbDbContext.Size = new System.Drawing.Size(201, 20);
-            this.cbDbContext.TabIndex = 7;
-            // 
             // cbtemplate
             // 
             this.cbtemplate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -82,7 +61,7 @@
             // 
             this.gpupdatemethod.Controls.Add(this.rbselect2);
             this.gpupdatemethod.Controls.Add(this.rbselect1);
-            this.gpupdatemethod.Location = new System.Drawing.Point(12, 98);
+            this.gpupdatemethod.Location = new System.Drawing.Point(12, 57);
             this.gpupdatemethod.Name = "gpupdatemethod";
             this.gpupdatemethod.Size = new System.Drawing.Size(226, 70);
             this.gpupdatemethod.TabIndex = 10;
@@ -117,7 +96,7 @@
             // 
             this.btnupdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnupdate.Enabled = false;
-            this.btnupdate.Location = new System.Drawing.Point(197, 215);
+            this.btnupdate.Location = new System.Drawing.Point(197, 138);
             this.btnupdate.Name = "btnupdate";
             this.btnupdate.Size = new System.Drawing.Size(75, 23);
             this.btnupdate.TabIndex = 11;
@@ -128,7 +107,7 @@
             // cbIsoriginal
             // 
             this.cbIsoriginal.AutoSize = true;
-            this.cbIsoriginal.Location = new System.Drawing.Point(12, 175);
+            this.cbIsoriginal.Location = new System.Drawing.Point(12, 134);
             this.cbIsoriginal.Name = "cbIsoriginal";
             this.cbIsoriginal.Size = new System.Drawing.Size(104, 16);
             this.cbIsoriginal.TabIndex = 13;
@@ -140,13 +119,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 250);
+            this.ClientSize = new System.Drawing.Size(284, 173);
             this.Controls.Add(this.cbIsoriginal);
             this.Controls.Add(this.btnupdate);
             this.Controls.Add(this.gpupdatemethod);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.cbDbContext);
             this.Controls.Add(this.cbtemplate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -165,8 +142,6 @@
         #endregion
 
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cbDbContext;
         private System.Windows.Forms.ComboBox cbtemplate;
         private System.Windows.Forms.GroupBox gpupdatemethod;
         private System.Windows.Forms.RadioButton rbselect1;

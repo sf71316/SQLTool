@@ -40,19 +40,12 @@ namespace SQLDescriptionEditor
         {
             if (cbtemplate.SelectedIndex > -1)
             {
-                if (!string.IsNullOrEmpty(cbtemplate.SelectedValue.ToString()))
-                {
-                    var entity = ConfigureModel.Find(cbtemplate.SelectedValue.ToString());
-                    DbContext db = new DbContext(entity);
-                    cbDbContext.DataSource = db.GetDataBases();
-                    cbDbContext.Enabled = true;
-                }
                 this.btnupdate.Enabled = this.CheckData();
             }
         }
         private bool CheckData()
         {
-            return (cbIsoriginal.Checked ||( cbtemplate.SelectedIndex > -1 && cbDbContext.SelectedIndex > -1)) &&
+            return (cbIsoriginal.Checked ||( cbtemplate.SelectedIndex > -1 )) &&
                 (rbselect1.Checked || rbselect2.Checked);
         }
         private void Update_Type_Click(object sender, EventArgs e)
@@ -66,7 +59,6 @@ namespace SQLDescriptionEditor
             if (!cbIsoriginal.Checked)
             {
                 _config = ConfigureModel.Find(cbtemplate.SelectedValue.ToString());
-                _config.DbName = cbDbContext.SelectedValue.ToString();
             }
             model.Notify += Model_Notify;
             await Task.Run(() =>
@@ -88,7 +80,6 @@ namespace SQLDescriptionEditor
 
         private void cbIsoriginal_CheckedChanged(object sender, EventArgs e)
         {
-            cbDbContext.Enabled = !cbIsoriginal.Checked;
             cbtemplate.Enabled = !cbIsoriginal.Checked;
         }
         public event EventHandler<NotifyArg> Notify;

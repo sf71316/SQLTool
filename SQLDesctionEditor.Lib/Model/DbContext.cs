@@ -17,8 +17,7 @@ namespace SQLDesctionEditor.Lib.Model
         }
         public DbContext(ConnectionEntity Entity)
         {
-            this.InitDataBase(GetConnectionString(Entity));
-
+            this.InitDataBase(Entity.ConnectionString,Entity.ProviderName);
         }
         public IList<string> GetDataBases()
         {
@@ -54,10 +53,12 @@ namespace SQLDesctionEditor.Lib.Model
 	                sc.object_id,
 					sc.column_id,
 		            COLUMN_DEFAULT ColumnDefault,isc.IS_NULLABLE ISNULLABLE,DATA_TYPE DataType,CHARACTER_MAXIMUM_LENGTH [Length],
-                    sep.value [Description]
+                    sep.value [Description],
+					t.modify_date LastModifiedOn
                 from sys.tables st
                 inner join sys.columns sc on st.object_id = sc.object_id
 	            inner join INFORMATION_SCHEMA.COLUMNS isc on isc.COLUMN_NAME=sc.name and isc.TABLE_NAME=st.name
+                INNER JOIN sys.objects t on t.object_Id=st.object_Id 
                 left join sys.extended_properties sep on st.object_id = sep.major_id
                                                      and sc.column_id = sep.minor_id
                                                      and sep.name = 'MS_Description'
@@ -110,60 +111,9 @@ namespace SQLDesctionEditor.Lib.Model
                 }
             }
         }
-        public static string GetConnectionString(string serverName,
-            bool isWindowsAuth = false, string UserId = "", string password = "", DbBase type = DbBase.SQLServer)
+        public void InitDataBase(string connectstring, string providerName)
         {
-            switch (type)
-            {
-                case DbBase.SQLServer:
-                    return generateString(serverName, isWindowsAuth, UserId, password, type);
-                case DbBase.MySQL:
-                    return "";
-                case DbBase.Oracle:
-                    return "";
-                default:
-                    return "";
-            }
-
-        }
-        public static string GetConnectionString(ConnectionEntity entity, DbBase type = DbBase.SQLServer)
-        {
-            switch (type)
-            {
-                case DbBase.SQLServer:
-                    return generateString(entity.ServerName, entity.WindowsAuthentication,
-                            entity.UserId, entity.Password, type, entity.DbName);
-                case DbBase.MySQL:
-                    return "";
-                case DbBase.Oracle:
-                    return "";
-                default:
-                    return "";
-            }
-
-        }
-        public void InitDataBase(string connectstring, SQLType type = SQLType.MSSQL)
-        {
-            this.GenerateDataBase(connectstring, type);
-        }
-        public async static Task<bool> TestConnect(string connectionstring, SQLType type = SQLType.MSSQL)
-        {
-            var db = new DbContext();
-            db.InitDataBase(connectionstring, type);
-
-            using (var conn = db.Provider.GenerateConnection())
-            {
-                try
-                {
-                    await conn.OpenAsync().ConfigureAwait(false);
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-
+            this.GenerateDataBase(connectstring, providerName);
         }
         private static string generateString(string serverName, bool isWindowsAuth, string userId, string password, DbBase type, string dbname = "")
         {

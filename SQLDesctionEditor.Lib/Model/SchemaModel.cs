@@ -14,10 +14,11 @@ namespace SQLDesctionEditor.Lib.Model
         {
 
         }
-        public List<TableEntity> GetAllTableSchema(string ConnectionName, string DbName)
+        public List<TableEntity> GetAllTableSchema(string ConnectionString, string ProviderName)
         {
-            var config = ConfigureModel.Find(ConnectionName);
-            config.DbName = DbName;
+            var config = new ConnectionEntity();
+            config.ConnectionString = ConnectionString;
+            config.ProviderName = ProviderName;
             using (DbContext db = new DbContext(config))
             {
                 this.OnNotify("Loading tables....");
@@ -42,7 +43,6 @@ namespace SQLDesctionEditor.Lib.Model
             , string ConnectionName, string DbName)
         {
             var config = ConfigureModel.Find(ConnectionName);
-            config.DbName = DbName;
             using (DbContext db = new DbContext(config))
             {
                 var exists = datasource.Select(s => s.Object_id);

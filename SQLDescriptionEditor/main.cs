@@ -100,7 +100,6 @@ namespace SQLDescriptionEditor
             if (editor != null)
             {
                 var entity = ConfigureModel.Find(editor.Project.ConnectionName);
-                entity.DbName = editor.Project.DbName;
                 using (DbContext context = new DbContext(entity))
                 {
                     ProjectModel model = new ProjectModel();

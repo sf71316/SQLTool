@@ -7,9 +7,9 @@ namespace SQLDesctionEditor.Lib.Model
     {
 
         public ProviderBase Provider { get; protected set; }
-        protected void GenerateDataBase(string connectionstring, SQLType type)
+        protected void GenerateDataBase(string connectionstring, string providername)
         {
-            this.Provider = new ProviderBase(connectionstring);
+            this.Provider = new ProviderBase(connectionstring, providername);
         }
     }
     public class ProviderBase
@@ -18,10 +18,10 @@ namespace SQLDesctionEditor.Lib.Model
         protected DbConnection _conn;
         protected DbProviderFactory _provider;
         protected string _connstr;
-        public ProviderBase(string connectionstring)
+        public ProviderBase(string connectionstring,string providername)
         {
             _connstr = connectionstring;
-            _provider = DbProviderFactories.GetFactory("System.Data.SqlClient");
+            _provider = DbProviderFactories.GetFactory(providername);
             _conn = _provider.CreateConnection();
             _conn.ConnectionString = connectionstring;
         }

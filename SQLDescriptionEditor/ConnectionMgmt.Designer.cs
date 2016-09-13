@@ -33,6 +33,7 @@
             this.cbtemplate = new System.Windows.Forms.ComboBox();
             this.tbConnectionname = new System.Windows.Forms.TextBox();
             this.btnOpenConnDialog = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lnklbDelete
@@ -65,6 +66,7 @@
             this.cbtemplate.Name = "cbtemplate";
             this.cbtemplate.Size = new System.Drawing.Size(201, 20);
             this.cbtemplate.TabIndex = 11;
+            this.cbtemplate.SelectionChangeCommitted += new System.EventHandler(this.cbtemplate_SelectionChangeCommitted);
             // 
             // tbConnectionname
             // 
@@ -72,6 +74,7 @@
             this.tbConnectionname.Name = "tbConnectionname";
             this.tbConnectionname.Size = new System.Drawing.Size(286, 22);
             this.tbConnectionname.TabIndex = 10;
+            this.tbConnectionname.TextChanged += new System.EventHandler(this.tbConnectionname_TextChanged);
             // 
             // btnOpenConnDialog
             // 
@@ -83,18 +86,32 @@
             this.btnOpenConnDialog.UseVisualStyleBackColor = true;
             this.btnOpenConnDialog.Click += new System.EventHandler(this.btnOpenConnDialog_Click);
             // 
+            // btnSave
+            // 
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(299, 261);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 15;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // ConnectionMgmt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(386, 296);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnOpenConnDialog);
             this.Controls.Add(this.lnklbDelete);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbtemplate);
             this.Controls.Add(this.tbConnectionname);
             this.Name = "ConnectionMgmt";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New connection";
+            this.Load += new System.EventHandler(this.ConnectionMgmt_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -107,5 +124,6 @@
         private System.Windows.Forms.ComboBox cbtemplate;
         private System.Windows.Forms.TextBox tbConnectionname;
         private System.Windows.Forms.Button btnOpenConnDialog;
+        private System.Windows.Forms.Button btnSave;
     }
 }

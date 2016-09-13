@@ -88,7 +88,6 @@ namespace SQLDescriptionEditor
             var table = Project.Tables
                .FirstOrDefault(p => p.Table_Name == lbTableList.SelectedValue.ToString());
             var _config = ConfigureModel.Find(Project.ConnectionName);
-            _config.DbName = Project.DbName;
             var updatefrm = new Updateschema(table, _config);
             updatefrm.Notify += Updatefrm_Notify;
             updatefrm.ShowDialog();
